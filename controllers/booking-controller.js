@@ -59,7 +59,7 @@ module.exports.insertBooking = function (req, res, next) {
     booking.save()
         .then(item => {
             console.log('saved');
-            res.status(200).json({mess: 'Register successfully !'});
+            res.status(200).json({mess: 'Booking successfully !'});
             res.redirect('/bookings');
         })
         .catch(err => {

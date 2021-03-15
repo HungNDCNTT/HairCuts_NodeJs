@@ -19,9 +19,6 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now(),
     },
-    updateAt: {
-        type: Date
-    },
     isAdmin: Boolean,
     phone: {
         type: String,
