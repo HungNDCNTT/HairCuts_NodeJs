@@ -16,14 +16,14 @@ module.exports.addImage = function (req, res, next) {
         image_link5: req.body.image_link5,
     });
     image.save()
-        .then(item => {
+        .then(status => {
+            res.setHeader('Content-Type', 'application/json');
             console.log('saved');
-            res.status(200).json({message: 'Add Image Successfully !'});
-            res.redirect('/add_image');
+            res.status(200).json({returnCode: '10000', message: 'Add Image Successfully !'});
         })
-        .catch(err => {
-            res.status(500).json({message: err});
-            console.log('unsaved' + err);
+        .catch(error => {
+            res.status(500).json({error: error.name});
+            console.log('unsaved' + error);
         });
 };
 

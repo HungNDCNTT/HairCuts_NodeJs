@@ -13,7 +13,7 @@ let urlencodedParser = bodyParser.urlencoded({extended: false});
  * Add Image
  **/
 
-imageRouter.post('/image/add', urlencodedParser, imageController.addImage);
+imageRouter.post('/api/image/add', urlencodedParser, imageController.addImage);
 
 /**
  * API
@@ -21,6 +21,6 @@ imageRouter.post('/image/add', urlencodedParser, imageController.addImage);
  * Get all images
  **/
 
-imageRouter.get('/image/getAll', imageController.getAllImage);
+imageRouter.get('/api/image/getAll', imageController.getAllImage);
 
 module.exports = imageRouter;

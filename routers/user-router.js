@@ -39,7 +39,7 @@ router.post('/api/user/edit', urlencodedParser, userController.editUserApi);
  * Remove User in web
  **/
 
-router.post('/user/remove', urlencodedParser, userController.removeUser);
+router.post('/api/user/remove', urlencodedParser, userController.removeUser);
 
 /**
  * API
@@ -47,6 +47,6 @@ router.post('/user/remove', urlencodedParser, userController.removeUser);
  * Get All User API
  **/
 
-router.get('/user/getAllUser', urlencodedParser, userController.getAllUser);
+router.get('/api/user/getAllUser', urlencodedParser, userController.getAllUser);
 
 module.exports = router;
