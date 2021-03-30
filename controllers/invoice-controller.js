@@ -83,7 +83,7 @@ module.exports.insertOrderApi = function(req, res, next) {
     invoice.save()
         .then(item => {
             res.status(200).json({
-                mess: "Create order success !"
+                message: "Create order success !"
             })
         })
         .catch(err => {

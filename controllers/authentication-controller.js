@@ -54,7 +54,7 @@ module.exports.onLoginApi = (req, res) => {
                         createdAt: req.body.createdAt,
                         address: req.body.address,
                         email: req.body.email,
-                        password: md5(req.body.password),
+                        password: req.body.password,
                         isAdmin: req.body.isAdmin,
                         name: req.body.name,
                         phone: req.body.phone,
@@ -73,7 +73,7 @@ module.exports.onRegisterApi = (req, res, next) => {
     //Validate register form
     let post_data = req.body;
     let email = post_data.email;
-    let password = md5(post_data.password);
+    let password = post_data.password;
     let user = new User({
         email: email,
         password: password,
@@ -86,7 +86,7 @@ module.exports.onRegisterApi = (req, res, next) => {
     user.save(function (err) {
         console.log(err);
         //   if (err) return handleError(err);
-        res.status(200).json({mess: 'Register successfully !'});
+        res.status(200).json({message: 'Register successfully !'});
     });
 }
 
@@ -96,7 +96,7 @@ module.exports.onRegister = (req, res, next) => {
     //Validate register form
     let user = new User({
         email: req.body.email,
-        password: md5(req.body.password),
+        password: req.body.password,
         isAdmin: true,
         name: "HungND",
         phone: "",

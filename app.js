@@ -8,6 +8,7 @@ const bookingRouter = require('./routers/booking-router');
 const authenticationRouter = require('./routers/authentication-router');
 const userRouter = require('./routers/user-router');
 const invoiceRouter = require('./routers/invoice-router');
+const imageRouter = require('./routers/image-router');
 
 //Init connection to MongoDB
 const initMongoServer = require('./config/database');
@@ -37,6 +38,7 @@ app.use(bookingRouter);
 app.use(authenticationRouter);
 app.use(userRouter);
 app.use(invoiceRouter);
+app.use(imageRouter);
 
 //Redirect if page not found
 app.get('*', (req, res) => res.status(404).render('page/page-404'));

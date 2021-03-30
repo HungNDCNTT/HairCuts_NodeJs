@@ -1,21 +1,21 @@
 //Import the mongoose module
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-const mongoDB = "mongodb+srv://haircutAdmin:admin@cluster0.hvw7p.mongodb.net/test";
+const mongoDB = "mongodb+srv://HairCutsServer:HairCutsServer@cluster0.tcklr.mongodb.net/test";
 const options = {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
 };
-const initMongoServer = async() => {
-        await mongoose.connect(mongoDB, options)
+const initMongoServer = async () => {
+    await mongoose.connect(mongoDB, options)
         .then(console.log("Connected to DB !!"))
-        .catch(err => console.log(err));
+        .catch(err => console.log("Error Connect: " + err));
 };
 
- //Get the default connection
+//Get the default connection
 const db = mongoose.connection;
 
 //Bind connection to error event (to get notification of connection errors)

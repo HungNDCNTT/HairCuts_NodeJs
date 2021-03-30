@@ -65,11 +65,11 @@ module.exports.editUserApi = function (req, res, next) {
     }, function (err, num) {
         if (err) {
             res.status(404).json({
-                mess: "Something wrong happended !"
+                message: "Something went wrong!"
             });
         }
         res.status(200).json({
-            mess: "Update user successful !"
+            message: "Update user successful !"
         });
     });
 }
