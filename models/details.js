@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 let date = Date.now();
 const detailsSchema = new mongoose.Schema({
     date: {
-        type: String,
-        default: date,
+        type: Date,
+        default: Date.now(),
     },
     titles: {
         type: String,
