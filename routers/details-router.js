@@ -32,4 +32,12 @@ router.post('/api/detail/getDetailById',urlencodedParser, detailsController.getD
 
 router.post('/api/detail/add',urlencodedParser, detailsController.addDetail);
 
+/**
+ * API
+ * Method POST
+ * Delete detail by ID
+ **/
+
+router.post('/api/detail/deleteById',urlencodedParser, detailsController.deleteDetailById);
+
 module.exports = router;

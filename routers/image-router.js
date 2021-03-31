@@ -23,4 +23,12 @@ imageRouter.post('/api/image/add', urlencodedParser, imageController.addImage);
 
 imageRouter.get('/api/image/getAll', imageController.getAllImage);
 
+/**
+ * API
+ * Method POST
+ * Delete image by ID
+ **/
+
+imageRouter.post('/api/image/deleteById',urlencodedParser, imageController.deleteImageById);
+
 module.exports = imageRouter;
