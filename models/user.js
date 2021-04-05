@@ -3,44 +3,47 @@ const crypto = require('crypto');
 const TokenGenerator = require('uuid-token-generator');
 
 const userSchema = new mongoose.Schema({
-    email: {
+    uuid: {
         type: String,
-        unique: true,
-        required: true,
         trim: true
     },
-    password: {
+    avatar_link: {
         type: String,
-        minlength: 6,
-        required: true,
-        trim: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now(),
-    },
-    isAdmin: Boolean,
-    phone: {
-        type: String,
-        required: false
-    },
-    address: {
-        type: String,
-        required: false,
-        default: "Hanoi"
     },
     name: {
         type: String,
         required: false
     },
-    tokens: [{
-        token: {
-            type: String,
-            required: true,
-        },
-    }],
-}, {
-    strict: false
+    email: {
+        type: String,
+        unique: true,
+        trim: true
+    },
+    password: {
+        type: String,
+        trim: true
+    },
+    phone: {
+        type: String,
+        required: false
+    },
+    date_of_birth: {
+        type: String,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+    },
+    isAdmin: {
+        type: Boolean,
+        default: true,
+    },
+    address: {
+        type: String,
+    },
+    tokens: {
+        type: String,
+    }
 });
 
 let genRandomString = function (length) {

@@ -51,13 +51,15 @@ module.exports.onLoginApi = (req, res) => {
                 let token = user.generateAuthToken();
                 console.log("Login Token: " + token)
                 User.findByIdAndUpdate(req.body._id, {
-                        createdAt: req.body.createdAt,
-                        address: req.body.address,
+                        uuid: req.body.uuid,
+                        avatar_link: req.body.avatar_link,
+                        name: req.body.name,
                         email: req.body.email,
                         password: req.body.password,
-                        isAdmin: req.body.isAdmin,
-                        name: req.body.name,
                         phone: req.body.phone,
+                        isAdmin: req.body.isAdmin,
+                        date_of_birth: req.body.date_of_birth,
+                        address: req.body.address,
                         tokens: token,
                     },
                 )
@@ -71,23 +73,30 @@ module.exports.onLoginApi = (req, res) => {
 module.exports.onRegisterApi = (req, res, next) => {
     // Create an instance of model SomeModel
     //Validate register form
-    let post_data = req.body;
-    let email = post_data.email;
-    let password = post_data.password;
     let user = new User({
-        email: email,
-        password: password,
-        isAdmin: false,
-        name: "",
-        phone: ""
+        uuid: req.body.uuid,
+        avatar_link: req.body.avatar_link,
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        phone: req.body.phone,
+        isAdmin: req.body.isAdmin,
+        date_of_birth: req.body.date_of_birth,
+        address: req.body.address,
     });
 
     // Save the new model instance, passing a callback
     user.save(function (err) {
-        console.log(err);
-        //   if (err) return handleError(err);
-        res.status(200).json({message: 'Register successfully !'});
-    });
+            console.log(err);
+            if (err) {
+                res.status(500).json({message: 'Register Failure !'});
+                return null;
+            } else {
+                res.status(200).json({message: 'Register successfully !'});
+            }
+        }
+    )
+    ;
 }
 
 //Register
@@ -95,11 +104,15 @@ module.exports.onRegister = (req, res, next) => {
     // Create an instance of model SomeModel
     //Validate register form
     let user = new User({
+        uuid: req.body.uuid,
+        avatar_link: req.body.avatar_link,
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password,
-        isAdmin: true,
-        name: "HungND",
-        phone: "",
+        phone: req.body.phone,
+        isAdmin: req.body.isAdmin,
+        date_of_birth: req.body.date_of_birth,
+        address: req.body.address,
     });
 
     // Save the new model instance, passing a callback
@@ -107,7 +120,10 @@ module.exports.onRegister = (req, res, next) => {
         console.log(err);
         if (err) {
             console.log(err);
+            res.status(500).json({message: 'Register Failure !'});
             return;
+        }else{
+            res.status(200).json({message: 'Register successfully !'});
         }
         console.log('Success');
         res.redirect('/login');
