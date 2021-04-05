@@ -46,6 +46,6 @@ router.post('/api/detail/deleteById',urlencodedParser, detailsController.deleteD
  * Update Comment by ID
  **/
 
-router.post('/api/detail/UpdateComment',urlencodedParser, detailsController.updateComment);
+router.post('/api/detail/updateComment',urlencodedParser, detailsController.updateComment);
 
 module.exports = router;

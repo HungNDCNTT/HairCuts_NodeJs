@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+let uuid = require('uuid');
 const detailsSchema = new mongoose.Schema({
-    detail_id: {
+    post_id: {
         type: String,
+        default:uuid.v1(),
     },
     date: {
         type: Date,
@@ -20,8 +22,9 @@ const detailsSchema = new mongoose.Schema({
         {
             user_id: {
                 type: String,
+                default: uuid.v4(),
             },
-            user_comment: [
+            user_comments: [
                 {
                     comment: {
                         type: String,
