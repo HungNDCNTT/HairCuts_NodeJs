@@ -109,12 +109,6 @@ module.exports.updateComment = function (req, res, next) {
             res.status(500).json({message: 'This post is not exits!'});
             return null;
         } else {
-            console.log('aaa: '+req.body.user_id);
-            Details.findOne( req.body.user_id, function (er, userExits) {
-                if (!userExits) {
-                    res.status(500).json({message: 'This user is not exits!'});
-                    return null;
-                } else {
                     Details.findOneAndUpdate(
                         {user_id: req.body.user_id},
                         {
@@ -129,7 +123,5 @@ module.exports.updateComment = function (req, res, next) {
                         }
                     );
                 }
-            })
-        }
     })
 };

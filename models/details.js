@@ -3,7 +3,7 @@ let uuid = require('uuid');
 const detailsSchema = new mongoose.Schema({
     post_id: {
         type: String,
-        default:uuid.v1(),
+        default: uuid.v1(),
     },
     date: {
         type: Date,
@@ -24,13 +24,9 @@ const detailsSchema = new mongoose.Schema({
                 type: String,
                 default: uuid.v4(),
             },
-            user_comments: [
-                {
-                    comment: {
-                        type: String,
-                    }
-                }
-            ],
+            comment: {
+                type: String,
+            },
         }
     ],
     rate: {
