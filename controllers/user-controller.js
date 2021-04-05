@@ -50,22 +50,21 @@ module.exports.editUser = function (req, res, next) {
  */
 module.exports.updateUserApi = function (req, res, next) {
     User.findOneAndUpdate({
-        _id: req.body.user_id
+        uuid: req.body.user_id
     }, {
         $set: {
-            uuid: req.body.uuid,
             avatar_link: req.body.avatar_link,
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
             phone: req.body.phone,
-            isAdmin: req.body.isAdmin,
+            isAdmin: true,
             date_of_birth: req.body.date_of_birth,
             address: req.body.address,
         }
     }, function (err, num) {
         if (err) {
-            res.status(404).json({
+            res.status(500).json({
                 message: "Something went wrong!"
             });
         }
@@ -83,11 +82,34 @@ module.exports.updateUserApi = function (req, res, next) {
 
 module.exports.removeUser = function (req, res, next) {
     console.log(req.body.pid);
-    User.findByIdAndRemove(req.body.pid,
+    User.findByIdAndRemove({uuid: req.body.user_id},
         function (err) {
             res.redirect('/user');
         }
     )
+};
+
+/**
+ * API
+ * Method POST
+ * Remove User Api
+ */
+module.exports.removeUserApi = function (req, res, next) {
+    User.findOne({_id: req.body.id}, function (err, exist) {
+        if (!exist) {
+            res.status(500).json({message: 'This user is not exist'});
+        } else {
+            User.findByIdAndRemove({_id: req.body.id},
+                function (err) {
+                    if (err) {
+                        res.status(500).json({message: 'Delete Failure!' + err});
+                    } else {
+                        res.status(200).json({returnCode: '10000', message: 'Delete Successfully !'});
+                    }
+                }
+            )
+        }
+    })
 };
 
 /**
@@ -102,6 +124,7 @@ module.exports.getAllUser = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         users.forEach(user => {
             result.push({
+                id: user._id,
                 uuid: user.uuid,
                 email: user.email,
                 password: user.password,

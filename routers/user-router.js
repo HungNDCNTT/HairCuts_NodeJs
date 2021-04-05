@@ -43,6 +43,14 @@ router.post('/user/remove', urlencodedParser, userController.removeUser);
 
 /**
  * API
+ * Method POST
+ * Remove User in api
+ **/
+
+router.post('/api/user/removeUser', urlencodedParser, userController.removeUserApi);
+
+/**
+ * API
  * Method GET
  * Get All User API
  **/

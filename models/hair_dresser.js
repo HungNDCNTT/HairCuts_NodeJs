@@ -1,26 +1,25 @@
 const mongoose = require('mongoose');
 let uuid = require('uuid');
-const detailsSchema = new mongoose.Schema({
-    post_id: {
+const hairDresserSchema = new mongoose.Schema({
+    id: {
+        type: String,
+    },
+    hair_dress_id: {
         type: String,
         default: uuid.v1(),
     },
-    date: {
-        type: Date,
-        default: Date.now(),
-    },
-    titles: {
+    dress_title: {
         type: String,
     },
     content: {
         type: String,
     },
-    linksHD: {
+    link_avt: {
         type: String,
     },
     comments: [
         {
-            user_id: {
+            uuid: {
                 type: String,
             },
             comment: {
@@ -34,4 +33,4 @@ const detailsSchema = new mongoose.Schema({
 });
 
 //Export model
-module.exports = mongoose.model('details', detailsSchema);
+module.exports = mongoose.model('hair_dresser', hairDresserSchema);

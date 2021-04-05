@@ -3,6 +3,9 @@ const crypto = require('crypto');
 const TokenGenerator = require('uuid-token-generator');
 
 const userSchema = new mongoose.Schema({
+    id: {
+        type: String,
+    },
     uuid: {
         type: String,
         trim: true
