@@ -13,11 +13,13 @@ module.exports.getAllDetail = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         details.forEach(items => {
             result.push({
-                detail_id:items._id,
+                detail_id: items._id,
                 date: items.date,
                 titles: items.titles,
                 content: items.content,
                 linksHD: items.linksHD,
+                comments: items.comments,
+                rate: items.rate,
             });
         });
         res.send(JSON.stringify(result));
@@ -36,6 +38,8 @@ module.exports.addDetail = function (req, res, next) {
         titles: req.body.titles,
         content: req.body.content,
         linksHD: req.body.linksHD,
+        comments: req.body.comments,
+        rate: req.body.rate,
     });
     details.save()
         .then(status => {
@@ -61,11 +65,13 @@ module.exports.getDetailsById = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         detailById.forEach(detailId => {
             detailItems.push({
-                detail_id:detailId._id,
+                detail_id: detailId._id,
                 date: detailId.date,
                 titles: detailId.titles,
                 content: detailId.content,
                 linksHD: detailId.linksHD,
+                comments: detailId.comments,
+                rate: detailId.rate,
             });
         });
         res.send(JSON.stringify(detailItems));
@@ -88,4 +94,40 @@ module.exports.deleteDetailById = function (req, res, next) {
             }
         }
     )
+};
+
+/**
+ * API
+ * Method POST
+ * Update Comment ID
+ **/
+
+module.exports.updateComment = function (req, res, next) {
+    Details.findOne({_id: req.body.post_id}, function (err, exits) {
+        if (!exits) {
+            res.status(500).json({message: 'This post is not exits!'});
+            return null;
+        } else {
+            Details.findOne({_id: req.body.user_id}, function (er, userExits) {
+                if (!userExits) {
+                    res.status(500).json({message: 'This user is not exits!'});
+                    return null;
+                } else {
+                    Details.findOneAndUpdate(
+                        {_id: req.body.user_id},
+                        {
+                            $push: {comments: req.body.comments,},
+                        },
+                        function (err) {
+                            if (err) {
+                                res.status(500).json({message: 'Somethings went wrong !' + err});
+                            } else {
+                                res.status(200).json({message: 'Comment updated !'})
+                            }
+                        }
+                    );
+                }
+            })
+        }
+    })
 };

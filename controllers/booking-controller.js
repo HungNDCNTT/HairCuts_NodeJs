@@ -77,7 +77,7 @@ module.exports.insertBooking = function (req, res, next) {
 module.exports.editBooking = function (req, res, next) {
 
     BookingList.findByIdAndUpdate(
-        req.body.pid,
+        req.body.id,
         {
             customer_id: req.body.customer_id,
             name: req.body.name,

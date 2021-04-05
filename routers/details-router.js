@@ -40,4 +40,12 @@ router.post('/api/detail/add',urlencodedParser, detailsController.addDetail);
 
 router.post('/api/detail/deleteById',urlencodedParser, detailsController.deleteDetailById);
 
+/**
+ * API
+ * Method POST
+ * Update Comment by ID
+ **/
+
+router.post('/api/detail/UpdateComment',urlencodedParser, detailsController.updateComment);
+
 module.exports = router;

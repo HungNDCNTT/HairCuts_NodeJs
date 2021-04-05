@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-let date = Date.now();
 const detailsSchema = new mongoose.Schema({
     detail_id: {
         type: String,
@@ -17,6 +16,23 @@ const detailsSchema = new mongoose.Schema({
     linksHD: {
         type: String,
     },
+    comments: [
+        {
+            user_id: {
+                type: String,
+            },
+            user_comment: [
+                {
+                    comment: {
+                        type: String,
+                    }
+                }
+            ],
+        }
+    ],
+    rate: {
+        type: String,
+    }
 });
 
 //Export model
