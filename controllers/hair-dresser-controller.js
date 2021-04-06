@@ -4,7 +4,7 @@ let HairDresser = require('../models/hair_dresser');
 /**
  * API
  * Method GET
- * Get booking API
+ * Get dresser API
  **/
 
 module.exports.getAllDresser = function (req, res, next) {
@@ -23,6 +23,21 @@ module.exports.getAllDresser = function (req, res, next) {
             });
         });
         res.send(JSON.stringify(result));
+    });
+};
+
+/**
+ * API
+ * Method GET
+ * Get Dresser Web
+ **/
+
+module.exports.getAllDresserWeb = function (req, res, next) {
+    HairDresser.find({}, function (err, dresser) {
+        res.render('dressers', {
+            title: 'Manager Hair Dresser',
+            dresser: dresser
+        });
     });
 };
 
@@ -55,7 +70,7 @@ module.exports.addHairDresser = function (req, res, next) {
 /**
  * API
  * Method POST
- * Edit user in web
+ * get dresser by id api
  **/
 
 module.exports.getDresserById = function (req, res, next) {

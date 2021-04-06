@@ -56,6 +56,7 @@ router.get('/chat', (req, res) => res.render('chat'));
 router.get('/calendar', (req, res) => res.render('calendar'));
 router.get('/taskboard', (req, res) => res.render('taskboard'));
 router.get('/map-google', (req, res) => res.render('map-google'));
+router.get('/dressers', (req, res) => res.render('dressers'));
 
 //File Manager
 router.get('/file-home', (req, res) => res.render('file/file-home'));

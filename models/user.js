@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const TokenGenerator = require('uuid-token-generator');
+const genToken = new TokenGenerator(256, TokenGenerator.BASE62);
+let token = genToken.generate();
 
 const userSchema = new mongoose.Schema({
     id: {
@@ -46,30 +48,13 @@ const userSchema = new mongoose.Schema({
     },
     tokens: {
         type: String,
+        default: token,
     }
 });
 
 let genRandomString = function (length) {
     return crypto.randomBytes(Math.ceil(length / 2))
         .toString('hex').slice(0, length);
-}
-
-userSchema.methods.generateAuthToken = async function () {
-    const user = this;
-    // const token = jwt.sign({
-    //     _id: user._id.toString(),
-    //     isAdmin: this.isAdmin,
-    //     expiresIn: "7 days"
-    // });
-    user.tokens = [];
-    const genToken = new TokenGenerator(256, TokenGenerator.BASE62);
-    let token = genToken.generate();
-
-    console.log("Token: " + token);
-    user.tokens = user.tokens.concat({token});
-    // user.tokens = token.toString();
-    await user.save();
-    return token;
 }
 
 let sha512 = (password, salt) => {

@@ -14,8 +14,12 @@
     "multer": "^1.4.2",
     "node-sessionstorage": "^1.0.0",
     "nodemon": "^1.19.4",
-    "uuid-token-generator": "^1.0.0",
-    "uuid": "latest"
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
+    "uuid": "latest",
+    "uuid-token-generator": "^1.0.0"
   },
   "devDependencies": {},
   "scripts": {

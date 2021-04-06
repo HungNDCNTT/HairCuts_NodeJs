@@ -16,13 +16,11 @@ module.exports.onLogin = (req, res) => {
             } else if (!user.isAdmin) {
                 console.log("You are not admin");
             } else {
-                let token = user.generateAuthToken()
                 console.log(req.body.password);
                 console.log(user.email);
                 console.log(user.password);
                 console.log("welcome " + user.email);
                 storage.setItem("email", user.email);
-                storage.setItem("tokens", token);
                 res.redirect('/home');
             }
         }

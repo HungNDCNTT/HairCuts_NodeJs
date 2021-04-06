@@ -17,6 +17,14 @@ let urlencodedParser = bodyParser.urlencoded({extended: false});
 router.get('/api/hairDresser/getAll', dresserController.getAllDresser);
 
 /**
+ * Web
+ * Method GET
+ * Get All dresser Web
+ **/
+
+router.get('/dressers', dresserController.getAllDresserWeb);
+
+/**
  * API
  * Method POST
  * Get dresser by id
