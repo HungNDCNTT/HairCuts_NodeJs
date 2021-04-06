@@ -127,12 +127,13 @@ module.exports.getAllUser = function (req, res, next) {
                 id: user._id,
                 uuid: user.uuid,
                 email: user.email,
-                password: user.password,
                 createdAt: user.createdAt,
                 isAdmin: user.isAdmin,
                 phone: user.phone,
                 address: user.address,
                 name: user.name,
+                avatar_link: user.avatar_link,
+                date_of_birth: user.date_of_birth,
                 tokens: user.tokens
             });
         });
