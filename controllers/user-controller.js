@@ -50,7 +50,7 @@ module.exports.editUser = function (req, res, next) {
  */
 module.exports.updateUserApi = function (req, res, next) {
     User.findOneAndUpdate({
-        uuid: req.body.user_id
+        uuid: req.body.uuid
     }, {
         $set: {
             avatar_link: req.body.avatar_link,
@@ -148,7 +148,7 @@ module.exports.getAllUser = function (req, res, next) {
  **/
 
 module.exports.findUserById = function (req, res, next) {
-    User.find({uuid: req.body.user_id}, function (err, userById) {
+    User.find({uuid: req.body.uuid}, function (err, userById) {
         let userItems = [];
         res.setHeader('Content-Type', 'application/json');
         userById.forEach(userId => {
