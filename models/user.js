@@ -3,37 +3,43 @@ const crypto = require('crypto');
 const TokenGenerator = require('uuid-token-generator');
 const genToken = new TokenGenerator(256, TokenGenerator.BASE62);
 let token = genToken.generate();
-
+let uuid = require('uuid');
 const userSchema = new mongoose.Schema({
     id: {
         type: String,
     },
     uuid: {
         type: String,
-        trim: true
+        trim: true,
+        default: uuid.v4(),
     },
     avatar_link: {
         type: String,
+        default:"",
     },
     name: {
         type: String,
-        required: false
+        default:"",
     },
     email: {
         type: String,
         unique: true,
-        trim: true
+        trim: true,
+        default:"",
     },
     password: {
         type: String,
-        trim: true
+        trim: true,
+        default:"",
     },
     phone: {
         type: String,
-        required: false
+        required: false,
+        default:"",
     },
     date_of_birth: {
         type: String,
+        default:Date.now(),
     },
     createdAt: {
         type: Date,
@@ -45,6 +51,7 @@ const userSchema = new mongoose.Schema({
     },
     address: {
         type: String,
+        default:"",
     },
     tokens: {
         type: String,

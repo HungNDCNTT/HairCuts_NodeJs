@@ -1,12 +1,14 @@
 const mongoose = require('mongoose');
-let uuid = require('uuid');
+const TokenGenerator = require('uuid-token-generator');
+const genToken = new TokenGenerator(256, TokenGenerator.BASE62);
+let post_id = genToken.generate();
 const detailsSchema = new mongoose.Schema({
     id: {
         type: String,
     },
     post_id: {
         type: String,
-        default: uuid.v1(),
+        default: post_id,
     },
     date: {
         type: Date,
@@ -14,25 +16,31 @@ const detailsSchema = new mongoose.Schema({
     },
     titles: {
         type: String,
+        default:"",
     },
     content: {
         type: String,
+        default:"",
     },
     linksHD: {
         type: String,
+        default:"",
     },
     comments: [
         {
             user_id: {
                 type: String,
+                default:"",
             },
             comment: {
                 type: String,
+                default:"",
             },
         }
     ],
     rate: {
         type: String,
+        default:"",
     }
 });
 
