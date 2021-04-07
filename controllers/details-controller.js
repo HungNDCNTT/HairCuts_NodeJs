@@ -86,7 +86,7 @@ module.exports.getDetailsById = function (req, res, next) {
  **/
 
 module.exports.deleteDetailById = function (req, res, next) {
-    Details.findByIdAndRemove({post_id: req.body.post_id},
+    Details.findByIdAndRemove({_id: req.body.id},
         function (err) {
             if (err) {
                 res.status(500).json({message: 'Delete Failure!' + err});

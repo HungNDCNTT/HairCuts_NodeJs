@@ -24,6 +24,8 @@ router.get('/bookings', bookingController.getBooking);
 
 router.get('/api/bookings', bookingController.getBookingApi);
 
+router.post('/api/bookingsById',urlencodedParser, bookingController.getDetailsById);
+
 /**
  * API
  * Method POST

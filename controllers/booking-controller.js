@@ -20,6 +20,26 @@ module.exports.getBooking = function (req, res, next) {
  * Get booking API
  **/
 
+
+module.exports.getDetailsById = function (req, res, next) {
+    BookingList.find({customer_id: req.body.customer_id}, function (err, detailById) {
+        let detailItems = [];
+        res.setHeader('Content-Type', 'application/json');
+        detailById.forEach(booking => {
+            detailItems.push({
+                customer_id: booking.customer_id,
+                name: booking.name,
+                phone: booking.phone,
+                services: booking.services,
+                price: booking.price,
+                status: booking.status,
+                times: booking.times
+            });
+        });
+        res.send(JSON.stringify(detailItems));
+    });
+};
+
 module.exports.getBookingApi = function (req, res, next) {
     BookingList.find({}, function (err, bookings) {
         let result = [];
