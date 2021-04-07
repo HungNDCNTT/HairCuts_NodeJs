@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 let uuid = require('uuid');
 const detailsSchema = new mongoose.Schema({
+    id: {
+        type: String,
+    },
     post_id: {
         type: String,
         default: uuid.v1(),

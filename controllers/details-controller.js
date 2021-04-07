@@ -13,6 +13,7 @@ module.exports.getAllDetail = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         details.forEach(items => {
             result.push({
+                id:items._id,
                 post_id: items.post_id,
                 date: items.date,
                 titles: items.titles,
@@ -66,6 +67,7 @@ module.exports.getDetailsById = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         detailById.forEach(detailId => {
             detailItems.push({
+                id:detailId._id,
                 post_id: detailId.post_id,
                 date: detailId.date,
                 titles: detailId.titles,
