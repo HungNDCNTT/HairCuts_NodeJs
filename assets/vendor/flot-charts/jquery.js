@@ -7284,7 +7284,11 @@ var
 	rhash = /#.*$/,
 	rheaders = /^(.*?):[ \t]*([^\r\n]*)\r?$/mg, // IE leaves an \r character at EOL
 	// #7653, #8125, #8152: local protocol detection
+<<<<<<< HEAD
 	rlocalProtocol = /^(?:about|appacc|appacc\-storage|.+\-extension|file|res|widget):$/,
+=======
+	rlocalProtocol = /^(?:about|app|app\-storage|.+\-extension|file|res|widget):$/,
+>>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
 	rnoContent = /^(?:GET|HEAD)$/,
 	rprotocol = /^\/\//,
 	rquery = /\?/,

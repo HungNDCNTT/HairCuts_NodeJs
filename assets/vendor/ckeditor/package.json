@@ -28,9 +28,13 @@
   "homepage": "http://ckeditor.com",
   "gitHead": "b889d7d3071a7a9d691e2e89170c745159f9f8c9",
   "_id": "ckeditor@4.5.10",
+<<<<<<< HEAD
   "scripts": {
     "start": "node appacc.js"
   },
+=======
+  "scripts": {},
+>>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
   "_shasum": "944128336a9a26316640746687b530b716272d27",
   "_from": "ckeditor@4.5.10",
   "_npmVersion": "3.8.6",

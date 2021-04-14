@@ -5,37 +5,39 @@ let customerId = genToken.generate();
 const bookingSchema = new mongoose.Schema({
     customer_id: {
         type: String,
-        default:customerId,
+        default: customerId,
     },
     name: {
         type: String,
-        default:"",
+        default: "",
     },
     phone: {
         type: String,
-        default:"",
+        default: "",
     },
+
     time_book: {
         type: String,
-        default:"",
+        default: "",
     },
     services: [{
         service: {
             type: String,
-            default:"",
+            default: "",
         }
     }],
     price: {
         type: Number,
-        default:0,
+        default: 0,
     },
     status: {
         type: String,
-        default:"",
+        default: "",
     },
     times: {
         type: String,
-        default:Date.now(),
+
+        default: Date.now(),
     },
 });
 

@@ -112,7 +112,9 @@ module.exports.updateComment = function (req, res, next) {
             return null;
         } else {
                     Details.findOneAndUpdate(
+
                         {_id: req.body.id},
+
                         {
                             $push: {comments: req.body.comments,},
                         },
