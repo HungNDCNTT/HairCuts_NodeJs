@@ -3,6 +3,9 @@ const TokenGenerator = require('uuid-token-generator');
 const genToken = new TokenGenerator(256, TokenGenerator.BASE62);
 let customerId = genToken.generate();
 const bookingSchema = new mongoose.Schema({
+    id: {
+        type: String,
+    },
     customer_id: {
         type: String,
         default: customerId,
