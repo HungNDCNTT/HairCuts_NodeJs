@@ -22,12 +22,11 @@ module.exports.getBooking = function (req, res, next) {
 
 
 module.exports.getDetailsById = function (req, res, next) {
-    BookingList.find({_id: req.body.id}, function (err, detailById) {
+    BookingList.find({customer_id: req.body.customer_id}, function (err, detailById) {
         let detailItems = [];
         res.setHeader('Content-Type', 'application/json');
         detailById.forEach(booking => {
             detailItems.push({
-                id:booking._id,
                 customer_id: booking.customer_id,
                 name: booking.name,
                 phone: booking.phone,
