@@ -27,7 +27,7 @@ module.exports.getDetailsById = function (req, res, next) {
         res.setHeader('Content-Type', 'application/json');
         detailById.forEach(booking => {
             detailItems.push({
-                id:detailId._id,
+                id:booking._id,
                 customer_id: booking.customer_id,
                 name: booking.name,
                 phone: booking.phone,
