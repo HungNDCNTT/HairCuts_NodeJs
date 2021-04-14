@@ -41,6 +41,28 @@ module.exports.getDetailsById = function (req, res, next) {
     });
 };
 
+module.exports.getDetailsByIdddd = function (req, res, next) {
+    BookingList.find({_id: req.body.id}, function (err, detailById) {
+        let detailItems = [];
+        res.setHeader('Content-Type', 'application/json');
+        detailById.forEach(booking => {
+            detailItems.push({
+                id:booking._id,
+                customer_id: booking.customer_id,
+                name: booking.name,
+                phone: booking.phone,
+                time_book: booking.time_book,
+                services: booking.services,
+                price: booking.price,
+                status: booking.status,
+                times: booking.times
+            });
+        });
+        res.send(JSON.stringify(detailItems));
+    });
+};
+
+
 module.exports.getBookingApi = function (req, res, next) {
     BookingList.find({}, function (err, bookings) {
         let result = [];
