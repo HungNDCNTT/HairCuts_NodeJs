@@ -74,12 +74,12 @@ module.exports.addHairDresser = function (req, res, next) {
  **/
 
 module.exports.getDresserById = function (req, res, next) {
-    HairDresser.find({hair_dress_id: req.body.hair_dress_id}, function (err, dresserById) {
+    HairDresser.find({_id: req.body.id}, function (err, dresserById) {
         let dresserItems = [];
         res.setHeader('Content-Type', 'application/json');
         dresserById.forEach(detailId => {
             dresserItems.push({
-                hair_dress_id: detailId.hair_dress_id,
+                _id: detailId.id,
                 dress_title: detailId.dress_title,
                 content: detailId.content,
                 link_avt: detailId.link_avt,
