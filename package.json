@@ -2,11 +2,7 @@
   "name": "hair_cut_nodejs",
   "version": "1.0.0",
   "description": "This app using for people who want to haircuts",
-<<<<<<< HEAD
   "main": "appacc.js",
-=======
-  "main": "app.js",
->>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
   "dependencies": {
     "body-parser": "^1.19.0",
     "ejs": "^3.1.6",
@@ -27,12 +23,8 @@
   },
   "devDependencies": {},
   "scripts": {
-<<<<<<< HEAD
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node appacc.js"
-=======
-    "test": "echo \"Error: no test specified\" && exit 1"
->>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
   },
   "repository": {
     "type": "git",

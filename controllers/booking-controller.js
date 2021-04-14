@@ -30,10 +30,7 @@ module.exports.getDetailsById = function (req, res, next) {
                 customer_id: booking.customer_id,
                 name: booking.name,
                 phone: booking.phone,
-<<<<<<< HEAD
                 time_book: booking.time_book,
-=======
->>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
                 services: booking.services,
                 price: booking.price,
                 status: booking.status,
@@ -53,10 +50,7 @@ module.exports.getBookingApi = function (req, res, next) {
                 customer_id: booking.customer_id,
                 name: booking.name,
                 phone: booking.phone,
-<<<<<<< HEAD
                 time_book: booking.time_book,
-=======
->>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
                 services: booking.services,
                 price: booking.price,
                 status: booking.status,
@@ -79,10 +73,7 @@ module.exports.insertBooking = function (req, res, next) {
         customer_id: req.body.customer_id,
         name: req.body.name,
         phone: req.body.phone,
-<<<<<<< HEAD
         time_book: req.body.time_book,
-=======
->>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
         services: req.body.services,
         price: req.body.price,
         status: req.body.status,
@@ -114,10 +105,7 @@ module.exports.editBooking = function (req, res, next) {
             customer_id: req.body.customer_id,
             name: req.body.name,
             phone: req.body.phone,
-<<<<<<< HEAD
             time_book: req.body.time_book,
-=======
->>>>>>> 7666efd572db3627c10659a32eaef0775dfdc32c
             services: req.body.services,
             price: req.body.price,
             status: req.body.status,
