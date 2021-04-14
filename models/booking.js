@@ -10,6 +10,10 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         default: customerId,
     },
+    dresser_id: {
+        type: String,
+        default: "",
+    },
     name: {
         type: String,
         default: "",

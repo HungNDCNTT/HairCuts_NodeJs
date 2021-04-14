@@ -28,6 +28,7 @@ module.exports.getDetailsById = function (req, res, next) {
         detailById.forEach(booking => {
             detailItems.push({
                 id:booking._id,
+                dresser_id: booking.dresser_id,
                 customer_id: booking.customer_id,
                 name: booking.name,
                 phone: booking.phone,
@@ -49,6 +50,7 @@ module.exports.getDetailsByIdddd = function (req, res, next) {
         detailById.forEach(booking => {
             detailItems.push({
                 id:booking._id,
+                dresser_id: booking.dresser_id,
                 customer_id: booking.customer_id,
                 name: booking.name,
                 phone: booking.phone,
@@ -94,6 +96,7 @@ module.exports.getBookingApi = function (req, res, next) {
 module.exports.insertBooking = function (req, res, next) {
 
     let booking = new BookingList({
+        dresser_id: req.body.dresser_id,
         customer_id: req.body.customer_id,
         name: req.body.name,
         phone: req.body.phone,
@@ -127,6 +130,7 @@ module.exports.editBooking = function (req, res, next) {
         req.body.id,
         {
             customer_id: req.body.customer_id,
+            dresser_id: req.body.dresser_id,
             name: req.body.name,
             phone: req.body.phone,
             time_book: req.body.time_book,
