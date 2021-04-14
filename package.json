@@ -1,0 +1,39 @@
+{
+  "name": "hair_cut_nodejs",
+  "version": "1.0.0",
+  "description": "This app using for people who want to haircuts",
+  "main": "appacc.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
+    "jsonwebtoken": "^8.5.1",
+    "md5": "^2.3.0",
+    "mongoose": "^5.12.0",
+    "multer": "^1.4.2",
+    "node-sessionstorage": "^1.0.0",
+    "nodemon": "^1.19.4",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
+    "uuid": "latest",
+    "uuid-token-generator": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node appacc.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HungNDCNTT/HairCut.git"
+  },
+  "author": "HungND",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HungNDCNTT/HairCut/issues"
+  },
+  "homepage": "https://github.com/HungNDCNTT/HairCut#readme"
+}

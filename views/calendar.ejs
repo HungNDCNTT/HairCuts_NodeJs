@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>Calendar</title>
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="../assets/vendor/fullcalendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/vendor/animate-css/animate.min.css">
+    <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/color_skins.css">
+</head>
+
+<body class="theme-blue">
+
+    <% include header %>
+
+    <div id="wrapper">
+
+        <% include nav-bar %>
+
+        <div id="leftsidebar" class="sidebar">
+            <div class="sidebar-scroll">
+                <nav id="leftsidebar-nav" class="sidebar-nav">
+                    <ul id="main-menu" class="metismenu">
+                        <li class="heading">Main</li>
+                        <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
+                        <li class="heading">App</li>
+                        <li><a href=""><i class="icon-envelope"></i><span>Booking</span></a></li>
+                        <li><a href=""><i class="icon-envelope"></i><span>History</span></a></li>
+                        <li><a href="/chat"><i class="icon-bubbles"></i><span>Chat</span></a></li>
+                        <li class="active"><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a>
+                        </li>
+                        <li><a href="/taskboard"><i class="icon-notebook"></i><span>Taskboard</span></a></li>
+                        <li class="heading">User</li>
+                        <li>
+                            <a href="#FileManager" class="has-arrow"><i class="icon-folder"></i><span>File
+                                    Manager</span></a>
+                            <ul>
+                                <li><a href="/file-home">Home</a></li>
+                                <li><a href="/file-documents">Documents</a></li>
+                                <li><a href="/file-media">Media</a></li>
+                                <li><a href="/file-images">Images</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#Blog" class="has-arrow"><i class="icon-globe"></i><span>Manager</span></a>
+                            <ul>
+                                <li><a href="/product">Product</a></li>
+                                <li><a href="/order">Order</a></li>
+                                <li><a href="/user">User</a></li>
+                            </ul>
+                        </li>
+                        <li class="heading">Extra</li>
+                        <li class="top">
+                            <a href="#Authentication" class="has-arrow"><i
+                                    class="icon-lock"></i><span>Authentication</span></a>
+                            <ul>
+                                <li><a href="/page-lockscreen">Lockscreen</a></li>
+                                <li><a href="/page-404">Page 404</a></li>
+                                <li><a href="/page-403">Page 403</a></li>
+                                <li><a href="/page-500">Page 500</a></li>
+                                <li><a href="/page-503">Page 503</a></li>
+                            </ul>
+                        </li>
+                        </li>
+                        <li class="top">
+                            <a href="#Maps" class="has-arrow"><i class="icon-map"></i> <span>Maps</span></a>
+                            <ul>
+                                <li><a href="/map-google">Google Map</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <% include mega-menu-bar %>
+
+        <% include right-side-bar %>
+
+        <div id="main-content">
+            <div class="container-fluid">
+                <div class="block-header">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-8 col-sm-12">
+                            <h2>Calendar</h2>
+                        </div>
+                        <div class="col-lg-7 col-md-4 col-sm-12 text-right">
+                            <ul class="breadcrumb justify-content-end">
+                                <li class="breadcrumb-item"><a href="/home"><i class="icon-home"></i></a></li>
+                                <li class="breadcrumb-item">App</li>
+                                <li class="breadcrumb-item active">Calendar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="body">
+                                <div id="calendar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="body">
+                                <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                                    data-target="#addevent">Add New Event</button>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="header">
+                                <h2>External Events</h2>
+                            </div>
+                            <div class="body pt-0">
+                                <ul class="list-group list-unstyled">
+                                    <li class="list-group-item">Long Event</li>
+                                    <li class="list-group-item">Happy Birthday</li>
+                                    <li class="list-group-item">Conference</li>
+                                    <li class="list-group-item">Long Event</li>
+                                    <li class="list-group-item">Happy Birthday</li>
+                                    <li class="list-group-item">Conference</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Default Size -->
+    <div class="modal fade" id="addevent" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="title" id="defaultModalLabel">Add Event</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="number" class="form-control" placeholder="Event Date">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <input type="text" class="form-control" placeholder="Event Title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-line">
+                            <textarea class="form-control no-resize" placeholder="Event Description..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Add</button>
+                    <button type="button" class="btn btn-simple" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Javascript -->
+    <script src="../assets/bundles/libscripts.bundle.js"></script>
+    <script src="../assets/bundles/vendorscripts.bundle.js"></script>
+
+    <script src="../assets/bundles/fullcalendarscripts.bundle.js"></script>
+    <!--/ calender javascripts -->
+
+    <script src="../assets/bundles/mainscripts.bundle.js"></script>
+    <script src="../assets/js/pages/calendar.js"></script>
+</body>
+
+</html>

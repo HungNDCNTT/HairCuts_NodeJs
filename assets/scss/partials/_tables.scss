@@ -1,0 +1,59 @@
+.table {
+	.thead-primary{
+	    th{
+		  color: $col-white;
+		  background-color: $color-primary;
+		  border-color: $color-primary;
+	    }
+	}
+	.thead-success{
+	    th{
+		  color: $col-white;
+		  background-color: $color-success;
+		  border-color: $color-success;
+	    }
+	}
+	.thead-danger{
+	    th{
+		  color: $col-white;
+		  background-color: $color-danger;
+		  border-color: $color-danger;
+	    }
+	}
+	.thead-info{
+	    th{
+		  color: $col-white;
+		  background-color: $color-info;
+		  border-color: $color-info;
+	    }
+	}
+	.thead-purple{
+	    th{
+		  color: $col-white;
+		  background-color: $purple;
+		  border-color: $purple;
+	    }
+	}
+	thead{
+		th{
+			border-color: $card-line;
+		}
+	}
+  
+    tbody {
+        tr,
+        th {
+            td {
+                vertical-align: middle;
+				white-space: nowrap;
+				border-color: $card-line;
+            }
+        }
+    }
+}
+.table-bordered{
+	border-color: $card-line;
+	td, th{
+		border-color: $card-line;
+	}	
+}
