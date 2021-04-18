@@ -67,11 +67,13 @@ let BookingList = require('../models/booking');
 
 router.post('/home', (req, res) => {
     var varrrrr = ""
+    var aa = ""
   switch (req.body.change){
     case "Confirm":
         varrrrr = "wait"
       break;
     case "Deny":
+        aa = "deny"
         varrrrr = "done"
       break;
     case "Completed":
@@ -82,7 +84,8 @@ router.post('/home', (req, res) => {
     BookingList.findByIdAndUpdate(
         req.body.abccc,
         {
-            status: varrrrr
+            status: varrrrr,
+            result: aa,
         },function(err, response){
             BookingList.find({status: valueQuery}, function (err, bookings) {
                 res.render("home", {dataa: bookings, select : abc});

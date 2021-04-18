@@ -167,7 +167,7 @@
         <script>
             var rad = document.dsadsad.gender;
             var prev = null;
-            for(var i = 0; i < rad.length; i++) {
+            for (var i = 0; i < rad.length; i++) {
                 rad[i].onclick = function () {
                     $("#submitaa").click();
                 };
@@ -177,27 +177,30 @@
 
         <form name="dsadsad">
             <div style="position: relative; margin-left: 14px">
-                <H3  style="  margin-right: 16px;display: inline-block; color: darkred">Status book: </H3>
+                <H3 style="  margin-right: 16px;display: inline-block; color: darkred">Status book: </H3>
                 <div style="  margin-right: 16px;display: inline-block">
                     <input type="radio" id="male" name="gender" value="pedding"
-                    <% if(select == "pedding" ||select == "undefined" ){ %> checked="checked" <% } %>
+                    <% if(select == "pedding" || select == "undefined" ){ %> checked="checked"
+                            <% } %>
                     >
                     <label for="male" style="color: white">Pedding</label><br>
                 </div>
                 <div style=" margin-right: 16px; display: inline-block">
                     <input type="radio" id="female" name="gender" value="wait"
-                    <% if(select == "wait"){ %> checked="checked" <% } %>
+                    <% if(select == "wait"){ %> checked="checked"
+                            <% } %>
                     >
                     <label for="female" style="color: white">Wait</label><br>
                 </div>
 
                 <div style="  margin-right: 16px;display: inline-block">
                     <input type="radio" id="other" name="gender" value="done"
-                    <% if(select == "done"){ %> checked="checked" <% } %>
+                    <% if(select == "done"){ %> checked="checked"
+                            <% } %>
                     >
                     <label for="other" style="color: white">Done</label>
                 </div>
-                <input id="submitaa " type="submit" />
+                <input id="submitaa " type="submit"/>
 
             </div>
         </form>
@@ -225,14 +228,30 @@
                         <a style="color: white; list-style-type: none; margin-top: 10px; padding-top: 10px">
                             <%= "Service: " + textService %>
                         </a>
-                            <br>
-                            <a style="color: yellow; font-size: 22px;list-style-type: none; margin-top: 10px; padding-top: 10px"  <% if(select == "wait" || select == "pedding"){ %> hidden="hidden" <% } %>>
-                                <b>  <%= "Status: " + dataa[i].status %></b>
-                            </a>
-                        <form method="post" action="/home"   >
+                        <br>
+                        <a style=" <% if(dataa[i].result == "deny"){ %>
+                                    color: red;
+                        <% } else{ %>
+                            color: yellow;
+                        <% } %>; font-size: 22px;list-style-type: none; margin-top: 10px; padding-top: 10px"
+                        <% if(select == "wait" || select == "pedding"){ %> hidden="hidden"
+                                <% } %>
+                        >
+                            <% var valueResult = "" %>
+                            <% if(dataa[i].result == "deny"){ %>
+                                <% valueResult = "Deny" %>
+                            <% } else{ %>
+                                <% valueResult = "Done" %>
+                            <% } %>
+                            <b>  <%= "Status: " + valueResult %></b>
+                        </a>
+                        <form method="post" action="/home">
                             <input hidden name="abccc" value="<%= dataa[i]._id %>"
                                    style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer"/>
-                            <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px" <% if(select == "done" || select == "wait"){ %> hidden="hidden" <% } %>>
+                            <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px"
+                            <% if(select == "done" || select == "wait"){ %> hidden="hidden"
+                                    <% } %>
+                            >
                                 <button name="change" type="submit" id="1" value="Confirm"
                                         style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer">
                                     Confirm
@@ -243,7 +262,10 @@
                                 </button>
                             </div>
 
-                            <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px" <% if(select == "done" || select == "pedding"){ %> hidden="hidden" <% } %>>
+                            <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px"
+                            <% if(select == "done" || select == "pedding"){ %> hidden="hidden"
+                                    <% } %>
+                            >
                                 <button name="change" type="submit" id="3" value="Completed"
                                         style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer">
                                     Completed

@@ -41,6 +41,10 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    result: {
+        type: String,
+        default: "",
+    },
     times: {
         type: String,
 

@@ -36,6 +36,7 @@ module.exports.getDetailsById = function (req, res, next) {
                 services: booking.services,
                 price: booking.price,
                 status: booking.status,
+                result: booking.result,
                 times: booking.times
             });
         });
@@ -58,6 +59,7 @@ module.exports.getDetailsByIdddd = function (req, res, next) {
                 services: booking.services,
                 price: booking.price,
                 status: booking.status,
+                result: booking.result,
                 times: booking.times
             });
         });
@@ -80,6 +82,7 @@ module.exports.getBookingApi = function (req, res, next) {
                 services: booking.services,
                 price: booking.price,
                 status: booking.status,
+                result: booking.result,
                 times: booking.times
             });
         });
@@ -104,6 +107,7 @@ module.exports.insertBooking = function (req, res, next) {
         services: req.body.services,
         price: req.body.price,
         status: req.body.status,
+        result: req.body.result,
         times: req.body.times
     });
     booking.save()
@@ -136,6 +140,7 @@ module.exports.editBooking = function (req, res, next) {
             time_book: req.body.time_book,
             services: req.body.services,
             price: req.body.price,
+            result: req.body.result,
             status: req.body.status,
             times: req.body.times
         },
