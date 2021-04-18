@@ -160,8 +160,6 @@
     </div>
     <!--    if(select="male" == ""){-->
     <!--    }-->
-
-
     <div id="main-content" class="taskboard">
 
         <script>
@@ -177,7 +175,7 @@
 
         <form name="dsadsad">
             <div style="position: relative; margin-left: 14px">
-                <H3 style="  margin-right: 16px;display: inline-block; color: darkred">Status book: </H3>
+                <H3 style="  margin-right: 16px;display: inline-block; color: white">Status book: </H3>
                 <div style="  margin-right: 16px;display: inline-block">
                     <input type="radio" id="male" name="gender" value="pedding"
                     <% if(select == "pedding" || select == "undefined" ){ %> checked="checked"
@@ -200,7 +198,7 @@
                     >
                     <label for="other" style="color: white">Done</label>
                 </div>
-                <input id="submitaa " type="submit"/>
+                <input style="border-radius: 3px" id="submitaa " type="submit"/>
 
             </div>
         </form>
@@ -208,9 +206,10 @@
 
         <ul style="">
             <% for (var i = 0; i < dataa.length; i++){ %>
-                <li type="submit"
-                    style="color: white; list-style-type: none;background-color: #0d97ff; border-radius: 15px; padding: 10px;  margin-top: 40px; cursor: pointer; width: auto">
-                    <div style="position: relative">
+                <li
+                        style="color: white; list-style-type: none;background-color: #00aff0; border-radius: 15px; padding: 10px;  margin-top: 40px; cursor: pointer; width: auto">
+                    </input>
+                    <div style="position: relative" >
                         <% if(!dataa[i].name == ""){ %>
                             <%= "Name: " + dataa[i].name %>
                         <% } else{ %>
@@ -230,7 +229,8 @@
                         </a>
                         <br>
                         <a style=" <% if(dataa[i].result == "deny"){ %>
-                                    color: red;
+                            color: #9c3328;
+
                         <% } else{ %>
                             color: yellow;
                         <% } %>; font-size: 22px;list-style-type: none; margin-top: 10px; padding-top: 10px"
@@ -245,8 +245,11 @@
                             <% } %>
                             <b>  <%= "Status: " + valueResult %></b>
                         </a>
-                        <form method="post" action="/home">
-                            <input hidden name="abccc" value="<%= dataa[i]._id %>"
+                            <br>
+
+                            <form method="post" action="/home">
+                                <input type="submit"  name="change" style="color: white;background-color: transparent; width: 100px; height: 100%; border-radius: 3px" value="View">
+                                <input hidden name="abccc" value="<%= dataa[i]._id %>"
                                    style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer"/>
                             <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px"
                             <% if(select == "done" || select == "wait"){ %> hidden="hidden"
