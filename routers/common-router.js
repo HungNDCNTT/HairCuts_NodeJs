@@ -66,14 +66,31 @@ let BookingList = require('../models/booking');
 
 
 router.post('/home', (req, res) => {
-  BookingList.find({status: valueQuery}, function (err, bookings) {
-    res.render("home", {dataa: bookings, select : abc});
+    var varrrrr = ""
+  switch (req.body.change){
+    case "Confirm":
+        varrrrr = "wait"
+      break;
+    case "Deny":
+        varrrrr = "done"
+      break;
+    case "Completed":
+        varrrrr = "done"
+      break;
+  }
 
-    // res.render('booking', {
-    //   title: 'Manager Booking',
-    //   bookings: bookings
-    // });
-  });
+    BookingList.findByIdAndUpdate(
+        req.body.abccc,
+        {
+            status: varrrrr
+        },function(err, response){
+            BookingList.find({status: valueQuery}, function (err, bookings) {
+                res.render("home", {dataa: bookings, select : abc});
+            });
+        }
+    );
+
+
   // if (storage.getItem('email') != null) {
   //   res.render("home");
   // } else {
