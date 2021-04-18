@@ -26,6 +26,7 @@ router.get('/register', (req, res) => {
   }
 })
 
+
 router.get('/logout', (req, res) => {
   storage.setItem("email", null);
   storage.setItem("isLogin", false);
@@ -34,19 +35,50 @@ router.get('/logout', (req, res) => {
 //router.get('/order', (req, res) => res.render('order'));
 // router.get('/user', (req, res) => res.render('user'));
 router.get('/recover', (req, res) => res.render('recover'));
-router.get('/home', (req, res) => {
-  if (storage.getItem('email') != null) {
-    res.render("home");
-  } else {
-    res.render("login");
+var abc;
+var valueQuery;
+router.get('/home', (req  , res) => {
+  // if (storage.getItem('email') != null) {
+   abc = req.query.gender
+
+  if (abc =="wait"){
+    valueQuery = "wait"
+  }else if (abc =="done"){
+    valueQuery = "done"
+  }else {
+    abc = "pedding"
+    valueQuery = "booking"
   }
+  BookingList.find({status: valueQuery}, function (err, bookings) {
+    res.render("home", {dataa: bookings, select : abc});
+    // res.render('booking', {
+    //   title: 'Manager Booking',
+    //   bookings: bookings
+    // });
+  });
+
+  // } else {
+  //   res.render("login");
+  // }
 });
+
+let BookingList = require('../models/booking');
+
+
 router.post('/home', (req, res) => {
-  if (storage.getItem('email') != null) {
-    res.render("home");
-  } else {
-    res.render("login");
-  }
+  BookingList.find({status: valueQuery}, function (err, bookings) {
+    res.render("home", {dataa: bookings, select : abc});
+
+    // res.render('booking', {
+    //   title: 'Manager Booking',
+    //   bookings: bookings
+    // });
+  });
+  // if (storage.getItem('email') != null) {
+  //   res.render("home");
+  // } else {
+  //   res.render("login");
+  // }
 });
 router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'));
 router.get('/profile', (req, res) => res.render('profile'));

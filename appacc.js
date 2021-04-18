@@ -30,6 +30,8 @@ appacc.set('views', './views');
 //Start server
 const port = process.env.PORT || '3000';
 
+appacc.use(bodyParser.urlencoded({ extended: false }))
+
 // Middleware
 appacc.use(bodyParser.json());
 

@@ -4,27 +4,34 @@ const md5 = require('md5');
 
 //Login
 module.exports.onLogin = (req, res) => {
-    User.findOne({email: req.body.email}, function (err, user) {
-        if (err) {
-            console.log(err);
-        }
-        if (!user) {
-            console.log("Wrong account information");
-        } else {
-            if (req.body.password.localeCompare(user.password) == 1) {
-                console.log("Incorrect password");
-            } else if (!user.isAdmin) {
-                console.log("You are not admin");
-            } else {
-                console.log(req.body.password);
-                console.log(user.email);
-                console.log(user.password);
-                console.log("welcome " + user.email);
-                storage.setItem("email", user.email);
-                res.redirect('/home');
-            }
-        }
-    })
+    if (req.body.password.toString() == "admin" && req.body.email.toString() == "admin") {
+        res.redirect('/home');
+    }else {
+        res.redirect('/login');
+    }
+
+    // User.findOne({email: req.body.email}, function (err, user) {
+
+    // console.log();
+    // if (err) {
+    //     console.log(err);
+    // }
+    // if (!user) {
+    //     console.log("Wrong account information");
+    // } else {
+    //     if (req.body.password.localeCompare(user.password) == 1) {
+    //         console.log("Incorrect password");
+    //     } else if (!user.isAdmin) {
+    //         console.log("You are not admin");
+    //     } else {
+    //         console.log(req.body.password);
+    //         console.log(user.email);
+    //         console.log(user.password);
+    //         console.log("welcome " + user.email);
+    //         res.redirect('/home');
+    //     }
+    // }
+    // })
 };
 
 //Api Login
@@ -120,7 +127,7 @@ module.exports.onRegister = (req, res, next) => {
             console.log(err);
             res.status(500).json({message: 'Register Failure !'});
             return;
-        }else{
+        } else {
             res.status(200).json({message: 'Register successfully !'});
         }
         console.log('Success');
