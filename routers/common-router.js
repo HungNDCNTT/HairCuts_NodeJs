@@ -80,6 +80,10 @@ let storagee = multer.diskStorage({
         cb(null, Date.now()+file.originalname)
     }
 })
+const bodyParser = require('body-parser');
+const appacc = express();
+appacc.use(bodyParser.urlencoded({extended: false}))
+appacc.use(bodyParser.json())
 
 var uploadd = multer({storage: storagee}).array('files', 12);
 
@@ -151,31 +155,43 @@ router.get('/taskboard', (req, res) => {
 
 });
 
-router.post('/upload', (req, res, next) => {
-    uploadd(req, res, function (err){
-        if (res.req.files == null || res.req.files.length==0){
-            Image.find({}, function (err, images) {
-                res.render('taskboard', {data: images})
-            })
-            return
-        }
+var uploadmmm = require('./multer')
+var clouddsa = require('./cloudinary')
+var cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: 'softss',
+    api_key:'799882167926469',
+    api_secret:'CLOUDINARY_URL=cloudinary://799882167926469:8ePPA1K2JqhQx9uNeKhu3_V3kkw@softss'
+})
+
+router.post('/upload',uploadmmm.array('files'),async (req, res, next) => {
+    // cloudinary.uploaded.upload(fi)
+    const  upload = async (path) => await clouddsa.uploads(path, "Images")
+    const urls = [];
+    const files = req.files;
+    for (const file of files){
+        const {path} = file
+        const  newPath = await upload(path)
+        urls.push(newPath)
+        fs.unlinkSync(path)
+    }
         Image.findOneAndRemove({}, function (err, data) {
             let image = new Image();
-            if (res.req.files[0]){
-                image.image_link1 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[0].originalname
-            }
-            if (res.req.files[1]){
-                image.image_link2 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[1].originalname
-            }
-            if (res.req.files[2]){
-                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[2].originalname
-            }
-            if (res.req.files[3]){
-                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[3].originalname
-            }
-            if (res.req.files[4]){
-                image.image_link4 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[4].originalname
-            }
+            // if (urls[0]){
+                image.image_link1 = "https://dsaddadsa.herokuapp.com/uploads/"
+            // }
+            // if (res.req.files[1]){
+                image.image_link2 = "https://dsaddadsa.herokuapp.com/uploads/"
+            // }
+            // if (res.req.files[2]){
+                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"
+            // }
+            // if (res.req.files[3]){
+                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"
+            // }
+            // if (res.req.files[4]){
+                image.image_link4 = "https://dsaddadsa.herokuapp.com/uploads/"
+            // }
             image.save()
                 .then(status => {
                     Image.find({}, function (err, images) {
@@ -188,9 +204,6 @@ router.post('/upload', (req, res, next) => {
                     })
                 });
         });
-
-
-    })
 
 });
 router.get('/map-google', (req, res) => res.render('map-google'));
