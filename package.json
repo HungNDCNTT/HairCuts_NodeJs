@@ -10,6 +10,7 @@
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
+    "form-data": "^4.0.0",
     "jsonwebtoken": "^8.5.1",
     "md5": "^2.3.0",
     "mongoose": "^5.12.0",
@@ -23,7 +24,9 @@
     "uuid": "latest",
     "uuid-token-generator": "^1.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "connect-multiparty": "^2.2.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node appacc.js"

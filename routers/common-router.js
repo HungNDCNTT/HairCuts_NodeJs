@@ -32,13 +32,10 @@ router.get('/logout', (req, res) => {
     storage.setItem("isLogin", false);
     res.render("login");
 })
-//router.get('/order', (req, res) => res.render('order'));
-// router.get('/user', (req, res) => res.render('user'));
 router.get('/recover', (req, res) => res.render('recover'));
 var abc;
 var valueQuery;
 router.get('/home', (req, res) => {
-    // if (storage.getItem('email') != null) {
     abc = req.query.gender
 
     if (abc == "wait") {
@@ -51,15 +48,8 @@ router.get('/home', (req, res) => {
     }
     BookingList.find({status: valueQuery}, function (err, bookings) {
         res.render("home", {dataa: bookings, select: abc});
-        // res.render('booking', {
-        //   title: 'Manager Booking',
-        //   bookings: bookings
-        // });
     });
 
-    // } else {
-    //   res.render("login");
-    // }
 });
 
 let Image = require('../models/image');
@@ -76,8 +66,8 @@ let storagee = multer.diskStorage({
         }
         cb(null, dir);
     },
-    filename: function (req, file, cb){
-        cb(null, Date.now()+file.originalname)
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname)
     }
 })
 const bodyParser = require('body-parser');
@@ -126,13 +116,6 @@ router.post('/home', (req, res) => {
             }
         );
     }
-
-
-    // if (storage.getItem('email') != null) {
-    //   res.render("home");
-    // } else {
-    //   res.render("login");
-    // }
 });
 router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'));
 router.get('/profile', (req, res) => res.render('profile'));
@@ -156,54 +139,58 @@ router.get('/taskboard', (req, res) => {
 });
 
 var uploadmmm = require('./multer')
-var clouddsa = require('./cloudinary')
-var cloudinary = require('cloudinary');
+
+const cloudinary = require('cloudinary').v2;
+const dotenv = require('dotenv')
+dotenv.config()
 cloudinary.config({
     cloud_name: 'softss',
-    api_key:'799882167926469',
-    api_secret:'CLOUDINARY_URL=cloudinary://799882167926469:8ePPA1K2JqhQx9uNeKhu3_V3kkw@softss'
+    api_key: '799882167926469',
+    api_secret: '8ePPA1K2JqhQx9uNeKhu3_V3kkw'
 })
 
-router.post('/upload',uploadmmm.array('files'),async (req, res, next) => {
-    // cloudinary.uploaded.upload(fi)
-    const  upload = async (path) => await clouddsa.uploads(path, "Images")
+router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
     const urls = [];
     const files = req.files;
-    for (const file of files){
-        const {path} = file
-        const  newPath = await upload(path)
-        urls.push(newPath)
-        fs.unlinkSync(path)
-    }
-        Image.findOneAndRemove({}, function (err, data) {
-            let image = new Image();
-            // if (urls[0]){
-                image.image_link1 = "https://dsaddadsa.herokuapp.com/uploads/"
-            // }
-            // if (res.req.files[1]){
-                image.image_link2 = "https://dsaddadsa.herokuapp.com/uploads/"
-            // }
-            // if (res.req.files[2]){
-                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"
-            // }
-            // if (res.req.files[3]){
-                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"
-            // }
-            // if (res.req.files[4]){
-                image.image_link4 = "https://dsaddadsa.herokuapp.com/uploads/"
-            // }
-            image.save()
-                .then(status => {
-                    Image.find({}, function (err, images) {
-                        res.render('taskboard', {data: images})
+    for (const file of files) {
+        const newPath = await new Promise(resolve => {
+            cloudinary.uploader.upload(file.path)
+                .then(function (image) {
+                    console.dir(image);
+                    resolve({
+                        url: image.url,
+                        id: image.public_id
                     })
                 })
-                .catch(error => {
-                    Image.find({}, function (err, images) {
-                        res.render('taskboard', {data: images})
-                    })
+                .then(function () {
+                })
+                .finally(function () {
                 });
-        });
+        })
+        urls.push(newPath.url)
+        fs.unlinkSync(file.path)
+    }
+
+
+    Image.findOneAndRemove({}, function (err, data) {
+        let image = new Image();
+        image.image_link1 = urls[0]
+        image.image_link2 = urls[1]
+        image.image_link3 = urls[2]
+        image.image_link3 = urls[3]
+        image.image_link4 = urls[4]
+        image.save()
+            .then(status => {
+                Image.find({}, function (err, images) {
+                    res.render('taskboard', {data: images})
+                })
+            })
+            .catch(error => {
+                Image.find({}, function (err, images) {
+                    res.render('taskboard', {data: images})
+                })
+            });
+    });
 
 });
 router.get('/map-google', (req, res) => res.render('map-google'));

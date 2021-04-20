@@ -1,10 +1,10 @@
 let multer = require('multer');
 let storagee = multer.diskStorage({
     destination: function (req, res, cb) {
-        cb(null, './uploads');
+        cb(null, './uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, new Date().toISOString() + '-' + file.originalname)
+        cb(null, Date.now() + '-' + file.originalname)
     }
 })
 let fileFilter = (req, file, cb) => {
@@ -14,6 +14,6 @@ let fileFilter = (req, file, cb) => {
 
     }
 }
-let uploadddd = multer({storage: storagee, limit: {fileSize: 3000 * 3000}, fileFilter: fileFilter});
+let uploadddd = multer({storage: storagee, fileFilter: fileFilter});
 
 module.exports = uploadddd
