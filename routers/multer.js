@@ -1,10 +1,10 @@
 let multer = require('multer');
 let storagee = multer.diskStorage({
     destination: function (req, res, cb) {
-        cb(null, 'uploads/');
+        cb(null, './uploads');
     },
     filename: function (req, file, cb) {
-        cb(null, Date.now() + file.originalname)
+        cb(null, new Date().toISOString() + '-' + file.originalname)
     }
 })
 let fileFilter = (req, file, cb) => {
