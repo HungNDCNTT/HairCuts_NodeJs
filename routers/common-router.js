@@ -62,8 +62,26 @@ router.get('/home', (req, res) => {
     // }
 });
 
+let Image = require('../models/image');
 let BookingList = require('../models/booking');
 let HairDresser = require('../models/hair_dresser');
+let multer = require('multer');
+let fs = require('fs');
+let upload = multer({dest: 'uploads/'})
+let storagee = multer.diskStorage({
+    destination: function (req, res, cb) {
+        const dir = "./uploads";
+        if (!fs.existsSync(dir)) {
+            fs.mkdir(dir);
+        }
+        cb(null, dir);
+    },
+    filename: function (req, file, cb){
+        cb(null, Date.now()+file.originalname)
+    }
+})
+
+var uploadd = multer({storage: storagee}).array('files', 12);
 
 router.post('/home', (req, res) => {
     var varrrrr = ""
@@ -88,7 +106,7 @@ router.post('/home', (req, res) => {
     if (varrrrr == ("View")) {
         BookingList.findOne({_id: req.body.abccc}, function (err, detailById) {
             HairDresser.findOne({_id: detailById.dresser_id}, function (err, dresserById) {
-                res.render("user",{dataBook: detailById, dataDreser: dresserById});
+                res.render("user", {dataBook: detailById, dataDreser: dresserById});
             });
         });
     } else {
@@ -117,8 +135,64 @@ router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
 router.get('/chat', (req, res) => res.render('chat'));
-router.get('/calendar', (req, res) => res.render('calendar'));
-router.get('/taskboard', (req, res) => res.render('taskboard'));
+router.get('/calendar', (req, res) => {
+    res.render('calendar')
+});
+router.get('/taskboard', (req, res) => {
+    if (req.query.submit == undefined) {
+        Image.find({}, function (err, images) {
+            res.render('taskboard', {data: images})
+        })
+    } else if (req.query.submit == "Change image") {
+        res.render('inbox')
+    } else if (req.query.submit == "Save image") {
+
+    }
+
+});
+
+router.post('/upload', (req, res, next) => {
+    uploadd(req, res, function (err){
+        if (res.req.files == null || res.req.files.length==0){
+            Image.find({}, function (err, images) {
+                res.render('taskboard', {data: images})
+            })
+            return
+        }
+        Image.findOneAndRemove({}, function (err, data) {
+            let image = new Image();
+            if (res.req.files[0]){
+                image.image_link1 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[0].originalname
+            }
+            if (res.req.files[1]){
+                image.image_link2 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[1].originalname
+            }
+            if (res.req.files[2]){
+                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[2].originalname
+            }
+            if (res.req.files[3]){
+                image.image_link3 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[3].originalname
+            }
+            if (res.req.files[4]){
+                image.image_link4 = "https://dsaddadsa.herokuapp.com/uploads/"+res.req.files[4].originalname
+            }
+            image.save()
+                .then(status => {
+                    Image.find({}, function (err, images) {
+                        res.render('taskboard', {data: images})
+                    })
+                })
+                .catch(error => {
+                    Image.find({}, function (err, images) {
+                        res.render('taskboard', {data: images})
+                    })
+                });
+        });
+
+
+    })
+
+});
 router.get('/map-google', (req, res) => res.render('map-google'));
 router.get('/dressers', (req, res) => res.render('dressers'));
 

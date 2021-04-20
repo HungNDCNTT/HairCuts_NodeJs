@@ -176,14 +176,14 @@
         <form name="dsadsad">
             <div style="position: relative; margin-left: 14px">
                 <H3 style="  margin-right: 16px;display: inline-block; color: white">Status book: </H3>
-                <div style="  margin-right: 16px;display: inline-block">
+                <div style="cursor:pointer;  margin-right: 16px;display: inline-block">
                     <input type="radio" id="male" name="gender" value="pedding"
                     <% if(select == "pedding" || select == "undefined" ){ %> checked="checked"
                             <% } %>
                     >
                     <label for="male" style="color: white">Pedding</label><br>
                 </div>
-                <div style=" margin-right: 16px; display: inline-block">
+                <div style="cursor:pointer; margin-right: 16px; display: inline-block">
                     <input type="radio" id="female" name="gender" value="wait"
                     <% if(select == "wait"){ %> checked="checked"
                             <% } %>
@@ -191,14 +191,14 @@
                     <label for="female" style="color: white">Wait</label><br>
                 </div>
 
-                <div style="  margin-right: 16px;display: inline-block">
-                    <input type="radio" id="other" name="gender" value="done"
+                <div style="cursor:pointer;  margin-right: 16px;display: inline-block">
+                    <input style="cursor:pointer" type="radio" id="other" name="gender" value="done"
                     <% if(select == "done"){ %> checked="checked"
                             <% } %>
                     >
-                    <label for="other" style="color: white">Done</label>
+                    <label for="other" style="cursor:pointer;color: white">Done</label>
                 </div>
-                <input style="border-radius: 3px" id="submitaa " type="submit"/>
+                <input style="cursor:pointer;border-radius: 3px" id="submitaa " type="submit"/>
 
             </div>
         </form>
@@ -207,7 +207,7 @@
         <ul style="">
             <% for (var i = 0; i < dataa.length; i++){ %>
                 <li
-                        style="color: white; list-style-type: none;background-color: #00aff0; border-radius: 15px; padding: 10px;  margin-top: 40px; cursor: pointer; width: auto">
+                        style="color: white; list-style-type: none;background-color: #00aff0; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
                     </input>
                     <div style="position: relative" >
                         <% if(!dataa[i].name == ""){ %>
@@ -248,7 +248,7 @@
                             <br>
 
                             <form method="post" action="/home">
-                                <input type="submit"  name="change" style="color: white;background-color: transparent; width: 100px; height: 100%; border-radius: 3px" value="View">
+                                <input type="submit"  name="change" style=" cursor: pointer;color: white;background-color: transparent; width: 100px; height: 100%; border-radius: 3px" value="View">
                                 <input hidden name="abccc" value="<%= dataa[i]._id %>"
                                    style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer"/>
                             <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px"

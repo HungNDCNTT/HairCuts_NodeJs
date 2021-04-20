@@ -154,11 +154,14 @@
     </div>
 
     <div id="main-content" class="taskboard">
-<!--        <ul>-->
-<!--            <% for (var i = 0; i < 5; i++){ %>-->
-<!--                <li> <%= "name" + i%></li>-->
-<!--            <%}%>-->
-<!--        </ul>-->
+              <img src="<%= data[0].image_link1 %>" alt="" width="300" height="233">
+              <img src="<%= data[0].image_link2 %>" alt="" width="300" height="233">
+              <img src="<%= data[0].image_link3 %>" alt="" width="300" height="233">
+              <img src="<%= data[0].image_link4 %>" alt="" width="300" height="233">
+              <img src="<%= data[0].image_link5 %>" alt="" width="300" height="233">
+        <form method="get" action="/taskboard">
+            <input type="submit" name="submit" value="Change image">
+        </form>
     </div>
 
 </div>
