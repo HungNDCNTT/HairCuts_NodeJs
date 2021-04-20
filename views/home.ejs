@@ -148,8 +148,6 @@
                     <li class="heading">Main</li>
                     <li class="active"><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
-                    <li><a href=""><i class="icon-envelope"></i><span>Booking</span></a></li>
-                    <li><a href=""><i class="icon-envelope"></i><span>History</span></a></li>
                     <li><a href="/chat"><i class="icon-bubbles"></i><span>Chat</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                     <li><a href="/taskboard"><i class="icon-notebook"></i><span>Taskboard</span></a></li>
@@ -207,7 +205,7 @@
         <ul style="">
             <% for (var i = 0; i < dataa.length; i++){ %>
                 <li
-                        style="color: white; list-style-type: none;background-color: #00aff0; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                        style="color: white; list-style-type: none;background-color: grey; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
                     </input>
                     <div style="position: relative" >
                         <% if(!dataa[i].name == ""){ %>
@@ -248,7 +246,7 @@
                             <br>
 
                             <form method="post" action="/home">
-                                <input type="submit"  name="change" style=" cursor: pointer;color: white;background-color: transparent; width: 100px; height: 100%; border-radius: 3px" value="View">
+                                <input type="submit"  name="change" style=" cursor: pointer;color: black; width: 100px; height: 100%; border-radius: 3px" value="View">
                                 <input hidden name="abccc" value="<%= dataa[i]._id %>"
                                    style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer"/>
                             <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px"

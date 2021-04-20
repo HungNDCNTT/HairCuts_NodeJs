@@ -1,57 +1,9 @@
 let express = require('express');
 const storage = require("node-sessionstorage");
-
+let Details = require('../models/details');
 let router = express.Router();
-
-router.get('/', (req, res) => {
-    if (storage.getItem("email") != null) {
-        res.render('home');
-    } else {
-        res.render('login');
-    }
-})
-router.get('/login', (req, res) => {
-    if (storage.getItem("email") != null) {
-        res.render('home');
-    } else {
-        res.render('login');
-    }
-})
-
-router.get('/register', (req, res) => {
-    if (storage.getItem("email") != null) {
-        res.render('home');
-    } else {
-        res.render('register');
-    }
-})
-
-
-router.get('/logout', (req, res) => {
-    storage.setItem("email", null);
-    storage.setItem("isLogin", false);
-    res.render("login");
-})
-router.get('/recover', (req, res) => res.render('recover'));
 var abc;
 var valueQuery;
-router.get('/home', (req, res) => {
-    abc = req.query.gender
-
-    if (abc == "wait") {
-        valueQuery = "wait"
-    } else if (abc == "done") {
-        valueQuery = "done"
-    } else {
-        abc = "pedding"
-        valueQuery = "booking"
-    }
-    BookingList.find({status: valueQuery}, function (err, bookings) {
-        res.render("home", {dataa: bookings, select: abc});
-    });
-
-});
-
 let Image = require('../models/image');
 let BookingList = require('../models/booking');
 let HairDresser = require('../models/hair_dresser');
@@ -74,8 +26,65 @@ const bodyParser = require('body-parser');
 const appacc = express();
 appacc.use(bodyParser.urlencoded({extended: false}))
 appacc.use(bodyParser.json())
-
 var uploadd = multer({storage: storagee}).array('files', 12);
+var uploadmmm = require('./multer')
+
+const cloudinary = require('cloudinary').v2;
+const dotenv = require('dotenv')
+dotenv.config()
+cloudinary.config({
+    cloud_name: 'softss',
+    api_key: '799882167926469',
+    api_secret: '8ePPA1K2JqhQx9uNeKhu3_V3kkw'
+})
+
+
+router.get('/', (req, res) => {
+    if (storage.getItem("email") != null) {
+        res.render('home');
+    } else {
+        res.render('login');
+    }
+})
+
+router.get('/login', (req, res) => {
+    if (storage.getItem("email") != null) {
+        res.render('home');
+    } else {
+        res.render('login');
+    }
+})
+
+router.get('/register', (req, res) => {
+    if (storage.getItem("email") != null) {
+        res.render('home');
+    } else {
+        res.render('register');
+    }
+})
+
+router.get('/logout', (req, res) => {
+    storage.setItem("email", null);
+    storage.setItem("isLogin", false);
+    res.render("login");
+})
+
+router.get('/recover', (req, res) => res.render('recover'));
+
+router.get('/home', (req, res) => {
+    abc = req.query.gender
+    if (abc == "wait") {
+        valueQuery = "wait"
+    } else if (abc == "done") {
+        valueQuery = "done"
+    } else {
+        abc = "pedding"
+        valueQuery = "booking"
+    }
+    BookingList.find({status: valueQuery}, function (err, bookings) {
+        res.render("home", {dataa: bookings, select: abc});
+    });
+});
 
 router.post('/home', (req, res) => {
     var varrrrr = ""
@@ -91,12 +100,10 @@ router.post('/home', (req, res) => {
         case "Completed":
             varrrrr = "done"
             break;
-
         case "View":
             varrrrr = "View"
             break;
     }
-
     if (varrrrr == ("View")) {
         BookingList.findOne({_id: req.body.abccc}, function (err, detailById) {
             HairDresser.findOne({_id: detailById.dresser_id}, function (err, dresserById) {
@@ -117,38 +124,36 @@ router.post('/home', (req, res) => {
         );
     }
 });
+
 router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'));
 router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
 router.get('/chat', (req, res) => res.render('chat'));
+
 router.get('/calendar', (req, res) => {
     res.render('calendar')
 });
+
 router.get('/taskboard', (req, res) => {
     if (req.query.submit == undefined) {
         Image.find({}, function (err, images) {
-            res.render('taskboard', {data: images})
+            Details.find({}, function (err, details) {
+                res.render('taskboard', {data: images, dataNewPaper: details})
+            });
         })
     } else if (req.query.submit == "Change image") {
         res.render('inbox')
     } else if (req.query.submit == "Save image") {
-
+    } else if (req.query.submit == "Thêm Bài viết") {
+        res.render('profile')
     }
 
 });
 
-var uploadmmm = require('./multer')
+router.post('/createNewPaper', uploadmmm.array('files'), async (req, res, next) => {
 
-const cloudinary = require('cloudinary').v2;
-const dotenv = require('dotenv')
-dotenv.config()
-cloudinary.config({
-    cloud_name: 'softss',
-    api_key: '799882167926469',
-    api_secret: '8ePPA1K2JqhQx9uNeKhu3_V3kkw'
-})
-
+});
 router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
     const urls = [];
     const files = req.files;
@@ -171,14 +176,13 @@ router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
         fs.unlinkSync(file.path)
     }
 
-
     Image.findOneAndRemove({}, function (err, data) {
         let image = new Image();
         image.image_link1 = urls[0]
         image.image_link2 = urls[1]
         image.image_link3 = urls[2]
-        image.image_link3 = urls[3]
-        image.image_link4 = urls[4]
+        image.image_link4 = urls[3]
+        image.image_link5 = urls[4]
         image.save()
             .then(status => {
                 Image.find({}, function (err, images) {

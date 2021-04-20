@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -142,8 +142,6 @@
                     <li class="heading">Main</li>
                     <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
-                    <li><a href=""><i class="icon-envelope"></i><span>Booking</span></a></li>
-                    <li><a href=""><i class="icon-envelope"></i><span>History</span></a></li>
                     <li><a href="/chat"><i class="icon-bubbles"></i><span>Chat</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                     <li class="active"><a href="/taskboard"><i class="icon-notebook"></i><span>Taskboard</span></a>
@@ -154,16 +152,55 @@
     </div>
 
     <div id="main-content" class="taskboard">
-              <img src="<%= data[0].image_link1 %>" alt="" width="300" height="233">
-              <img src="<%= data[0].image_link2 %>" alt="" width="300" height="233">
-              <img src="<%= data[0].image_link3 %>" alt="" width="300" height="233">
-              <img src="<%= data[0].image_link4 %>" alt="" width="300" height="233">
-              <img src="<%= data[0].image_link5 %>" alt="" width="300" height="233">
+        <a style="font-size: 33px; color: white; width: 100%; text-align: center; -ms-transform: translateY(-50%); transform: translateY(-50%)">Hình
+            ảnh đang được hiển thị trên app.</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <img src="<%= data[0].image_link1 %>" alt="" width="18%" height="200"
+             style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">
+        <img src="<%= data[0].image_link2 %>" alt="" width="18%" height="200"
+             style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">
+        <img src="<%= data[0].image_link3 %>" alt="" width="18%" height="200"
+             style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">
+        <img src="<%= data[0].image_link4 %>" alt="" width="18%" height="200"
+             style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">
+        <img src="<%= data[0].image_link5 %>" alt="" width="18%" height="200"
+             style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">
         <form method="get" action="/taskboard">
-            <input type="submit" name="submit" value="Change image">
+            <input type="submit" name="submit" value="Change image"
+                   style=" animation:bouncy 5s infinite linear;  position:relative; left: 0px; right: 0px; margin-top: 30px;  position: absolute;   left: 50%; transform: translate(-50%,-50%);">
         </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div style="background-color: white; height: 0.5px; width: 100%"/>
+        <br>
+        <br>
+        <a style="font-size: 33px; color: white; width: 100%; text-align: center; -ms-transform: translateY(-50%); transform: translateY(-50%)">Bài
+            viết mới</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <% for (var i = 0; i < dataNewPaper.length; i++){ %>
+            <div style="position:relative">
+                <input hidden name="id_new" value="<%= dataNewPaper[i].id %>">
+                <img src="<%= dataNewPaper[i].linksHD %>" style="position:absolute;width: 120px; height: 120px"/>
+                <a style="color: white; margin-left: 170px; font-size: 21px">    <%= dataNewPaper[i].titles %></a>
+                <div style="color: white; margin-left: 170px; top: 50px; max-lines: 4; height: 4.5em;  overflow: hidden;">    <%= dataNewPaper[i].content %></div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+        <% } %>
     </div>
-
+    <form>
+        <input type="submit"  name="submit" style="display: block; position: fixed;bottom: 20px; right: 30px; z-index: 99;font-size: 18px;border: none;outline: none;background-color: red;color: white;cursor: pointer;padding: 15px;border-radius: 4px;" id="myBtn" title="Go to top" value="Thêm Bài viết"></input>
+    </form>
 </div>
 
 <!-- Add New Task -->

@@ -26,15 +26,15 @@
 <div id="wrapper">
 
     <script>
-        $(function() {
+        $(function () {
             // Multiple images preview in browser
-            var imagesPreview = function(input, placeToInsertImagePreview) {
+            var imagesPreview = function (input, placeToInsertImagePreview) {
                 if (input.files) {
                     var filesAmount = input.files.length;
                     for (i = 0; i < filesAmount; i++) {
                         var reader = new FileReader();
-                        reader.onload = function(event) {
-                            $($.parseHTML('<img style="width: 300px; height: 300px; padding: 10px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                        reader.onload = function (event) {
+                            $($.parseHTML('<img width="18%" height="233" style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
                         }
 
                         reader.readAsDataURL(input.files[i]);
@@ -43,7 +43,7 @@
 
             };
 
-            $('#gallery-photo-add').on('change', function() {
+            $('#gallery-photo-add').on('change', function () {
                 imagesPreview(this, 'div.gallery');
             });
         });
@@ -162,8 +162,6 @@
                     <li class="heading">Main</li>
                     <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
-                    <li><a href=""><i class="icon-envelope"></i><span>Booking</span></a></li>
-                    <li><a href=""><i class="icon-envelope"></i><span>History</span></a></li>
                     <li><a href="/chat"><i class="icon-bubbles"></i><span>Chat</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                     <li class="active"><a href="/taskboard"><i class="icon-notebook"></i><span>Taskboard</span></a>
@@ -175,9 +173,18 @@
 
     <div id="main-content" class="taskboard">
         <form method="post" action="/upload" enctype="multipart/form-data">
-            <input type="file" name="files" multiple id="gallery-photo-add">
+            <a style="font-size: 33px; color: white; width: 100%; text-align: center; -ms-transform: translateY(-50%); transform: translateY(-50%)">Tải lên 5 bức ảnh hiển thị trên app.</a>
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="file" name="files" multiple id="gallery-photo-add" accept="image/*" max-uploads=5>
+            <br>
+            <br>
             <div class="gallery"></div>
-            <button type="submit" name="submit" value="Save image">Save image</button>
+            <br>
+            <br>
+            <button type="submit" name="submit" value="Save image" style="margin-top: 9px">Save image</button>
         </form>
     </div>
 
