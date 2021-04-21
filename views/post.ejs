@@ -189,18 +189,19 @@
         <br>
         <br>
         <% for (var i = 0; i < dataNewPaper.length; i++){ %>
-            <div style="position:relative">
-                <input hidden name="id_new" value="<%= dataNewPaper[i].id %>">
-                <img src="<%= dataNewPaper[i].linksHD %>" style="position:absolute;width: 120px; height: 120px" />
+        <li
+                style="color: white; list-style-type: none;background-color: gray; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                <img src="<%= dataNewPaper[i].linksHD %>" style="position:absolute;width: 120px; height: 120px; border-radius: 15px" />
                 <a style="color: white; margin-left: 170px; font-size: 21px">    <%= dataNewPaper[i].titles %></a>
                 <br>
                 <br>
-                <div style="color: white; margin-left: 170px; top: 50px; max-lines: 4; height: 4.5em;  overflow: hidden;">    <%= dataNewPaper[i].content %></div>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
+                <div style="color: white; margin-left: 170px; top: 50px;  overflow: hidden;">    <%= dataNewPaper[i].content %></div>
+                <form method="get" action="/post">
+                    <input hidden name="id_new" value="<%= dataNewPaper[i].id %>">
+                    <input type="submit"  name="submit" value="Xóa" style="bottom: 0; border-radius: 13px; position: relative" >
+                </form>
+        </li>
+
         <% } %>
     </div>
     <form>

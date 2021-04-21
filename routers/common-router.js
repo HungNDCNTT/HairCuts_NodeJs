@@ -126,7 +126,7 @@ router.post('/home', (req, res) => {
 });
 
 router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'));
-router.get('/profile', uploadmmm.array('files'), (req, res) => res.render('profile'));
+router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
 router.get('/dresser', (req, res) =>{
@@ -146,7 +146,21 @@ router.get('/post', (req, res) => {
     if (req.query.submit == undefined) {
         Image.find({}, function (err, images) {
             Details.find({}, function (err, details) {
-                res.render('post', {data: images, dataNewPaper: details})
+                let result = [];
+                details.forEach(items => {
+                    result.push({
+                        id:items._id.toString(),
+                        post_id: items.post_id,
+                        date: items.date,
+                        titles: items.titles,
+                        content: items.content,
+                        linksHD: items.linksHD,
+                        comments: items.comments,
+                        rate: items.rate,
+                    });
+                });
+
+                res.render('post', {data: images, dataNewPaper: result})
             });
         })
     } else if (req.query.submit == "Change image") {
@@ -154,49 +168,44 @@ router.get('/post', (req, res) => {
     } else if (req.query.submit == "Save image") {
     } else if (req.query.submit == "Thêm Bài viết") {
         res.render('profile')
+    }else if (req.query.submit == "Xóa") {
+        Details.findByIdAndRemove({_id: req.query.id_new},
+            function (err) {
+                Image.find({}, function (err, images) {
+                    Details.find({}, function (err, details) {
+                        let result = [];
+                        details.forEach(items => {
+                            result.push({
+                                id:items._id.toString(),
+                                post_id: items.post_id,
+                                date: items.date,
+                                titles: items.titles,
+                                content: items.content,
+                                linksHD: items.linksHD,
+                                comments: items.comments,
+                                rate: items.rate,
+                            });
+                        });
+
+                        res.redirect('/post')
+                        res.render('post.ejs', {data: images, dataNewPaper: result})
+                    });
+                })
+            }
+        )
+
+
+
     }
 
 });
 
 router.post('/createNewPaper', uploadmmm.array('files'), async (req, res, next) => {
-    const newPath = await new Promise(resolve => {
-        cloudinary.uploader.upload( req.files[0].path)
-            .then(function (image) {
-                console.dir(image);
-                resolve({
-                    url: image.url,
-                    id: image.public_id
-                })
-            })
-            .then(function () {
-            })
-            .finally(function () {
-            });
-    })
 
-    let details = new Details({
-        titles: req.body.title,
-        content: req.body.content,
-        linksHD: newPath.url
-    });
-    details.save()
-        .then(status => {
-            Image.find({}, function (err, images) {
-                Details.find({}, function (err, details) {
-                    res.render('post', {data: images, dataNewPaper: details})
-                });
-            })
-        })
-        .catch(error => {
-            Image.find({}, function (err, images) {
-                Details.find({}, function (err, details) {
-                    res.render('post', {data: images, dataNewPaper: details})
-                });
-            })
-        });
 
 });
 router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
+if (req.body.submit== "Save image"){
     const urls = [];
     const files = req.files;
     for (const file of files) {
@@ -228,15 +237,114 @@ router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
         image.save()
             .then(status => {
                 Image.find({}, function (err, images) {
-                    res.render('post', {data: images})
+                    Details.find({}, function (err, details) {
+                        let result = [];
+                        details.forEach(items => {
+                            result.push({
+                                id:items._id.toString(),
+                                post_id: items.post_id,
+                                date: items.date,
+                                titles: items.titles,
+                                content: items.content,
+                                linksHD: items.linksHD,
+                                comments: items.comments,
+                                rate: items.rate,
+                            });
+                        });
+
+                        res.redirect('/post')
+                        res.render('post.ejs', {data: images, dataNewPaper: result})
+                    });
                 })
             })
             .catch(error => {
                 Image.find({}, function (err, images) {
-                    res.render('post', {data: images})
+                    Details.find({}, function (err, details) {
+                        let result = [];
+                        details.forEach(items => {
+                            result.push({
+                                id:items._id.toString(),
+                                post_id: items.post_id,
+                                date: items.date,
+                                titles: items.titles,
+                                content: items.content,
+                                linksHD: items.linksHD,
+                                comments: items.comments,
+                                rate: items.rate,
+                            });
+                        });
+                        res.redirect('/post')
+                        res.render('post.ejs', {data: images, dataNewPaper: result})
+                    });
                 })
             });
     });
+}else if (req.body.submit =="addNewPaper") {
+    const newPath = await new Promise(resolve => {
+        cloudinary.uploader.upload( req.files[0].path)
+            .then(function (image) {
+                console.dir(image);
+                resolve({
+                    url: image.url,
+                    id: image.public_id
+                })
+            })
+            .then(function () {
+            })
+            .finally(function () {
+            });
+    })
+
+    let details = new Details({
+        titles: req.body.title,
+        content: req.body.content,
+        linksHD: newPath.url
+    });
+    details.save()
+        .then(status => {
+            Image.find({}, function (err, images) {
+                Details.find({}, function (err, details) {
+                    let result = [];
+                    details.forEach(items => {
+                        result.push({
+                            id:items._id.toString(),
+                            post_id: items.post_id,
+                            date: items.date,
+                            titles: items.titles,
+                            content: items.content,
+                            linksHD: items.linksHD,
+                            comments: items.comments,
+                            rate: items.rate,
+                        });
+                    });
+                    res.redirect('/post')
+                    res.render('post.ejs', {data: images, dataNewPaper: result})
+                });
+            })
+        })
+        .catch(error => {
+            Image.find({}, function (err, images) {
+                Details.find({}, function (err, details) {
+                    let result = [];
+                    details.forEach(items => {
+                        result.push({
+                            id:items._id.toString(),
+                            post_id: items.post_id,
+                            date: items.date,
+                            titles: items.titles,
+                            content: items.content,
+                            linksHD: items.linksHD,
+                            comments: items.comments,
+                            rate: items.rate,
+                        });
+                    });
+                    res.redirect('/post')
+                    res.render('post.ejs', {data: images, dataNewPaper: result})
+                });
+            })
+        });
+}
+
 
 });
 router.get('/map-google', (req, res) => res.render('map-google'));
