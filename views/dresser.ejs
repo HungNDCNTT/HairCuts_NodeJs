@@ -160,13 +160,26 @@
     <ul style="">
         <% for (var i = 0; i < dresser.length; i++){ %>
             <li
-                    style="color: white; list-style-type: none;background-color: green; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                    style="color: white; list-style-type: none;background-color: grey; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
                 <% if(!dresser[i].dress_title == ""){ %>
                     <%= "Dresser Name: " + dresser[i].dress_title %>
                 <% } else{ %>
                     <%= "Dresser Name: " + "No Mention" %>
                 <% } %>
                 <br>
+                    <div style="display: grid; position: absolute;  width: 100px;height: 30px; right: 30px">
+                        <button hidden name="change" type="submit" id="1" value="Edit"
+                                style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer">
+                            Edit
+                        </button>
+                        <form method="get" action="/dresser">
+                            <input hidden name="idDresser" value="<%= dresser[i].id %>">
+                        <button name="submit" type="submit" id="2" value="Delete"
+                                style=" right: 6px; height: 100% ; border-radius: 4px; background-color: darkred; color: white; cursor: pointer ">
+                            Delete
+                        </button>
+                        </form>
+                    </div>
                 <img name="img_avt" src="<%= dresser[i].link_avt %>" alt="Trulli" width="300" height="300">
                 <br>
                 <br>
@@ -175,20 +188,6 @@
                 <% } else{ %>
                     <%= "Description: " + "No Mention" %>
                 <% } %>
-                <br>
-                    <form method="post" action="/dresser">
-                        <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px;height: 30px">
-                            <button name="change" type="submit" id="1" value="Edit"
-                                    style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer">
-                                Edit
-                            </button>
-                            <button name="change" type="submit" id="2" value="Delete"
-                                    style=" right: 6px; height: 100% ; border-radius: 4px; background-color: darkred; color: white; cursor: pointer ">
-                                Delete
-                            </button>
-                        </div>
-                    </form>
-                    <br>
             </li>
         <% } %>
     </ul>

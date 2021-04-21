@@ -130,14 +130,51 @@ router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'))
 router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
-router.get('/dresser', (req, res) =>{
+router.get('/dresser', (req, res) => {
     if (req.query.submit == undefined) {
-    HairDresser.find({}, function (err, dresser) {
-        res.render('dresser', {
-            dresser: dresser
+        HairDresser.find({}, function (err, dresser) {
+            let result = [];
+            dresser.forEach(items => {
+                result.push({
+                    id: items._id.toString(),
+                    hair_dress_id: items.hair_dress_id,
+                    dress_title: items.dress_title,
+                    content: items.content,
+                    link_avt: items.link_avt,
+                    comments: items.comments,
+                    rate: items.rate,
+                });
+            });
+            // idDresser
+            res.render('dresser', {
+                dresser: result
+            });
         });
-    });}else if(req.query.submit=='Add Dresser'){
+    } else if (req.query.submit == 'Add Dresser') {
         res.render('add-dresser');
+    } else if (req.query.submit == 'Delete') {
+        HairDresser.findByIdAndDelete({_id: req.query.idDresser},
+            function (err) {
+                HairDresser.find({}, function (err, dresser) {
+                    let result = [];
+                    dresser.forEach(items => {
+                        result.push({
+                            id: items._id.toString(),
+                            hair_dress_id: items.hair_dress_id,
+                            dress_title: items.dress_title,
+                            content: items.content,
+                            link_avt: items.link_avt,
+                            comments: items.comments,
+                            rate: items.rate,
+                        });
+                    });
+                    // idDresser
+                    res.render('dresser', {
+                        dresser: result
+                    });
+                })
+            }
+        )
     }
 });
 
@@ -153,7 +190,7 @@ router.get('/post', (req, res) => {
                 let result = [];
                 details.forEach(items => {
                     result.push({
-                        id:items._id.toString(),
+                        id: items._id.toString(),
                         post_id: items.post_id,
                         date: items.date,
                         titles: items.titles,
@@ -172,7 +209,7 @@ router.get('/post', (req, res) => {
     } else if (req.query.submit == "Save image") {
     } else if (req.query.submit == "Thêm Bài viết") {
         res.render('profile')
-    }else if (req.query.submit == "Xóa") {
+    } else if (req.query.submit == "Xóa") {
         Details.findByIdAndRemove({_id: req.query.id_new},
             function (err) {
                 Image.find({}, function (err, images) {
@@ -180,7 +217,7 @@ router.get('/post', (req, res) => {
                         let result = [];
                         details.forEach(items => {
                             result.push({
-                                id:items._id.toString(),
+                                id: items._id.toString(),
                                 post_id: items.post_id,
                                 date: items.date,
                                 titles: items.titles,
@@ -199,7 +236,6 @@ router.get('/post', (req, res) => {
         )
 
 
-
     }
 
 });
@@ -209,12 +245,83 @@ router.post('/createNewPaper', uploadmmm.array('files'), async (req, res, next) 
 
 });
 router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
-if (req.body.submit== "Save image"){
-    const urls = [];
-    const files = req.files;
-    for (const file of files) {
+    if (req.body.submit == "Save image") {
+        const urls = [];
+        const files = req.files;
+        for (const file of files) {
+            const newPath = await new Promise(resolve => {
+                cloudinary.uploader.upload(file.path)
+                    .then(function (image) {
+                        console.dir(image);
+                        resolve({
+                            url: image.url,
+                            id: image.public_id
+                        })
+                    })
+                    .then(function () {
+                    })
+                    .finally(function () {
+                    });
+            })
+            urls.push(newPath.url)
+            fs.unlinkSync(file.path)
+        }
+
+        Image.findOneAndRemove({}, function (err, data) {
+            let image = new Image();
+            image.image_link1 = urls[0]
+            image.image_link2 = urls[1]
+            image.image_link3 = urls[2]
+            image.image_link4 = urls[3]
+            image.image_link5 = urls[4]
+            image.save()
+                .then(status => {
+                    Image.find({}, function (err, images) {
+                        Details.find({}, function (err, details) {
+                            let result = [];
+                            details.forEach(items => {
+                                result.push({
+                                    id: items._id.toString(),
+                                    post_id: items.post_id,
+                                    date: items.date,
+                                    titles: items.titles,
+                                    content: items.content,
+                                    linksHD: items.linksHD,
+                                    comments: items.comments,
+                                    rate: items.rate,
+                                });
+                            });
+
+                            res.redirect('/post')
+                            res.render('post.ejs', {data: images, dataNewPaper: result})
+                        });
+                    })
+                })
+                .catch(error => {
+                    Image.find({}, function (err, images) {
+                        Details.find({}, function (err, details) {
+                            let result = [];
+                            details.forEach(items => {
+                                result.push({
+                                    id: items._id.toString(),
+                                    post_id: items.post_id,
+                                    date: items.date,
+                                    titles: items.titles,
+                                    content: items.content,
+                                    linksHD: items.linksHD,
+                                    comments: items.comments,
+                                    rate: items.rate,
+                                });
+                            });
+                            res.redirect('/post')
+                            res.render('post.ejs', {data: images, dataNewPaper: result})
+                        });
+                    })
+                });
+        });
+    } else if (req.body.submit == "addNewPaper") {
         const newPath = await new Promise(resolve => {
-            cloudinary.uploader.upload(file.path)
+            cloudinary.uploader.upload(req.files[0].path)
                 .then(function (image) {
                     console.dir(image);
                     resolve({
@@ -227,25 +334,20 @@ if (req.body.submit== "Save image"){
                 .finally(function () {
                 });
         })
-        urls.push(newPath.url)
-        fs.unlinkSync(file.path)
-    }
 
-    Image.findOneAndRemove({}, function (err, data) {
-        let image = new Image();
-        image.image_link1 = urls[0]
-        image.image_link2 = urls[1]
-        image.image_link3 = urls[2]
-        image.image_link4 = urls[3]
-        image.image_link5 = urls[4]
-        image.save()
+        let details = new Details({
+            titles: req.body.title,
+            content: req.body.content,
+            linksHD: newPath.url
+        });
+        details.save()
             .then(status => {
                 Image.find({}, function (err, images) {
                     Details.find({}, function (err, details) {
                         let result = [];
                         details.forEach(items => {
                             result.push({
-                                id:items._id.toString(),
+                                id: items._id.toString(),
                                 post_id: items.post_id,
                                 date: items.date,
                                 titles: items.titles,
@@ -255,7 +357,6 @@ if (req.body.submit== "Save image"){
                                 rate: items.rate,
                             });
                         });
-
                         res.redirect('/post')
                         res.render('post.ejs', {data: images, dataNewPaper: result})
                     });
@@ -267,7 +368,7 @@ if (req.body.submit== "Save image"){
                         let result = [];
                         details.forEach(items => {
                             result.push({
-                                id:items._id.toString(),
+                                id: items._id.toString(),
                                 post_id: items.post_id,
                                 date: items.date,
                                 titles: items.titles,
@@ -282,74 +383,72 @@ if (req.body.submit== "Save image"){
                     });
                 })
             });
-    });
-}else if (req.body.submit =="addNewPaper") {
-    const newPath = await new Promise(resolve => {
-        cloudinary.uploader.upload( req.files[0].path)
-            .then(function (image) {
-                console.dir(image);
-                resolve({
-                    url: image.url,
-                    id: image.public_id
+    } else if (req.body.submit == "addNewDresser") {
+
+        const newPath = await new Promise(resolve => {
+            cloudinary.uploader.upload(req.files[0].path)
+                .then(function (image) {
+                    console.dir(image);
+                    resolve({
+                        url: image.url,
+                        id: image.public_id
+                    })
                 })
-            })
-            .then(function () {
-            })
-            .finally(function () {
-            });
-    })
-
-    let details = new Details({
-        titles: req.body.title,
-        content: req.body.content,
-        linksHD: newPath.url
-    });
-    details.save()
-        .then(status => {
-            Image.find({}, function (err, images) {
-                Details.find({}, function (err, details) {
-                    let result = [];
-                    details.forEach(items => {
-                        result.push({
-                            id:items._id.toString(),
-                            post_id: items.post_id,
-                            date: items.date,
-                            titles: items.titles,
-                            content: items.content,
-                            linksHD: items.linksHD,
-                            comments: items.comments,
-                            rate: items.rate,
-                        });
-                    });
-                    res.redirect('/post')
-                    res.render('post.ejs', {data: images, dataNewPaper: result})
+                .then(function () {
+                })
+                .finally(function () {
                 });
-            })
         })
-        .catch(error => {
-            Image.find({}, function (err, images) {
-                Details.find({}, function (err, details) {
+
+        let hairDresser = new HairDresser({
+            dress_title: req.body.title,
+            content: req.body.content,
+            link_avt: newPath.url
+        });
+        hairDresser.save()
+            .then(status => {
+                HairDresser.find({}, function (err, dresser) {
                     let result = [];
-                    details.forEach(items => {
+                    dresser.forEach(items => {
                         result.push({
-                            id:items._id.toString(),
-                            post_id: items.post_id,
-                            date: items.date,
-                            titles: items.titles,
+                            id: items._id.toString(),
+                            hair_dress_id: items.hair_dress_id,
+                            dress_title: items.dress_title,
                             content: items.content,
-                            linksHD: items.linksHD,
+                            link_avt: items.link_avt,
                             comments: items.comments,
                             rate: items.rate,
                         });
                     });
-                    res.redirect('/post')
-                    res.render('post.ejs', {data: images, dataNewPaper: result})
+                    // idDresser
+                    res.redirect('/dresser')
+                    res.render('dresser', {
+                        dresser: result
+                    });
                 });
             })
-        });
-}
-
-
+            .catch(error => {
+                HairDresser.find({}, function (err, dresser) {
+                    let result = [];
+                    dresser.forEach(items => {
+                        result.push({
+                            id: items._id.toString(),
+                            hair_dress_id: items.hair_dress_id,
+                            dress_title: items.dress_title,
+                            content: items.content,
+                            link_avt: items.link_avt,
+                            comments: items.comments,
+                            rate: items.rate,
+                        });
+                    });
+                    // idDresser
+                    res.redirect('/dresser')
+                    res.render('dresser', {
+                        dresser: result
+                    });
+                });
+            });
+    }
 });
 router.get('/map-google', (req, res) => res.render('map-google'));
 router.get('/dressers', (req, res) => res.render('dressers'));
