@@ -1,12 +1,12 @@
 let express = require('express');
 const storage = require("node-sessionstorage");
-let Details = require('../models/details');
 let router = express.Router();
 var abc;
 var valueQuery;
 let Image = require('../models/image');
 let BookingList = require('../models/booking');
 let HairDresser = require('../models/hair_dresser');
+let Details = require('../models/details');
 let multer = require('multer');
 let fs = require('fs');
 let upload = multer({dest: 'uploads/'})
@@ -126,7 +126,7 @@ router.post('/home', (req, res) => {
 });
 
 router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'));
-router.get('/profile', (req, res) => res.render('profile'));
+router.get('/profile', uploadmmm.array('files'), (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
 router.get('/dresser', (req, res) =>{
@@ -140,6 +140,7 @@ router.get('/dresser', (req, res) =>{
 router.get('/calendar', (req, res) => {
     res.render('calendar')
 });
+
 
 router.get('/post', (req, res) => {
     if (req.query.submit == undefined) {
@@ -158,6 +159,41 @@ router.get('/post', (req, res) => {
 });
 
 router.post('/createNewPaper', uploadmmm.array('files'), async (req, res, next) => {
+    const newPath = await new Promise(resolve => {
+        cloudinary.uploader.upload( req.files[0].path)
+            .then(function (image) {
+                console.dir(image);
+                resolve({
+                    url: image.url,
+                    id: image.public_id
+                })
+            })
+            .then(function () {
+            })
+            .finally(function () {
+            });
+    })
+
+    let details = new Details({
+        titles: req.body.title,
+        content: req.body.content,
+        linksHD: newPath.url
+    });
+    details.save()
+        .then(status => {
+            Image.find({}, function (err, images) {
+                Details.find({}, function (err, details) {
+                    res.render('post', {data: images, dataNewPaper: details})
+                });
+            })
+        })
+        .catch(error => {
+            Image.find({}, function (err, images) {
+                Details.find({}, function (err, details) {
+                    res.render('post', {data: images, dataNewPaper: details})
+                });
+            })
+        });
 
 });
 router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
@@ -192,12 +228,12 @@ router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
         image.save()
             .then(status => {
                 Image.find({}, function (err, images) {
-                    res.render('taskboard', {data: images})
+                    res.render('post', {data: images})
                 })
             })
             .catch(error => {
                 Image.find({}, function (err, images) {
-                    res.render('taskboard', {data: images})
+                    res.render('post', {data: images})
                 })
             });
     });
