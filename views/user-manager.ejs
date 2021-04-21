@@ -142,10 +142,10 @@
                     <li class="heading">Main</li>
                     <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
-                    <li class="active"><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
+                    <li><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                     <li><a href="/post"><i class="icon-notebook"></i><span>Post</span></a></li>
-                    <li><a href="/userManager"><i class="icon-notebook"></i><span>User manager</span></a></li>
+                    <li class="active"><a href="/userManager"><i class="icon-notebook"></i><span>User manager</span></a></li>
                 </ul>
             </nav>
         </div>
@@ -158,32 +158,37 @@
 </div>
 
 <div id="main-content" class="taskboard">
-    <ul style="">
-      <li style="color:white;">
-          <%= "Total Users: " + users.length %>
-      </li>
+    <ul style="position: relative">
+        <li style="color:white;font-size: 22px">
+            <%= "Total Users: " + users.length %>
+        </li>
         <% for (var i = 0; i < users.length; i++){ %>
-            <li
-                    style="color: white; list-style-type: none;background-color: lightskyblue; border-radius: 15px; padding: 30px;  margin-top: 20px; width: fit-content;margin-left: 100px">
+        <div style="  width: 30% ">
+            <li style="color: white; list-style-type: none;background-color: lightskyblue; border-radius: 15px; padding: 30px;  margin-top: 20px;">
                 <% if(!users[i].name == ""){ %>
                     <%= "User Name: " + users[i].name %>
                 <% } else{ %>
                     <%= "User Name: " + "No Mention" %>
                 <% } %>
                 <br>
+                    <% if(!users[i].email == ""){ %>
+                        <%= "Email: " + users[i].email %>
+                    <% } else{ %>
+                        <%= "Email: " + "No Mention" %>
+                    <% } %>
+                    <br>
                 <% if(!users[i].phone == ""){ %>
                     <%= "Phone: " + users[i].phone %>
                 <% } else{ %>
                     <%= "Phone: " + "No Mention" %>
                 <% } %>
                 <br>
+                <div style="border-radius: 20px">
+                    <img name="img_avt" src="<%= users[i].avatar_link %>" alt="Trulli" width="200" height="200">
+                </div>
                 <br>
-                    <div style="border-radius: 20px">
-                        <img name="img_avt" src="<%= users[i].avatar_link %>" alt="Trulli" width="200" height="200">
-                    </div>
-                    <br>
-                    <br>
             </li>
+        </div>
         <% } %>
     </ul>
 </div>
