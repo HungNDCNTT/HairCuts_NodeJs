@@ -34,8 +34,7 @@ module.exports.getAllDresser = function (req, res, next) {
 
 module.exports.getAllDresserWeb = function (req, res, next) {
     HairDresser.find({}, function (err, dresser) {
-        res.render('dressers', {
-            title: 'Manager Hair Dresser',
+        res.render('dresser', {
             dresser: dresser
         });
     });
@@ -98,7 +97,7 @@ module.exports.getDresserById = function (req, res, next) {
  **/
 
 module.exports.deleteDresserById = function (req, res, next) {
-    HairDresser.findOne({_id: req.body.id}, function (err,exist) {
+    HairDresser.findOne({_id: req.body.id}, function (err, exist) {
         if (!exist) {
             res.status(500).json({message: 'This id is not exits '});
         } else {

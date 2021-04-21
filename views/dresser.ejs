@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>Detail</title>
+    <title>HairDressers</title>
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/vendor/animate-css/animate.min.css">
@@ -14,14 +14,19 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/chatapp.css">
     <link rel="stylesheet" href="../assets/css/color_skins.css">
 </head>
 
 <body class="theme-blue">
 
+<!-- Page Loader -->
+
+<!-- Overlay For Sidebars -->
 <div class="overlay" style="display: none;"></div>
 
 <div id="wrapper">
+
 
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
@@ -41,7 +46,12 @@
                                         class="lnr lnr-menu fa fa-bars"></i></button>
                         </div>
                     </li>
-
+                    <li>
+                        <form id="navbar-search" class="navbar-form search-form">
+                            <input value="" class="form-control" placeholder="Search here..." type="text">
+                            <button type="button" class="btn btn-default"><i class="icon-magnifier"></i></button>
+                        </form>
+                    </li>
                     <li>
                         <div id="navbar-menu">
                             <ul class="nav navbar-nav">
@@ -130,80 +140,83 @@
             <nav id="leftsidebar-nav" class="sidebar-nav">
                 <ul id="main-menu" class="metismenu">
                     <li class="heading">Main</li>
-                    <li class="active"><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
+                    <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
-                    <li><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
+                    <li class="active"><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a></li>
                     <li><a href="/post"><i class="icon-notebook"></i><span>Post</span></a></li>
-
                 </ul>
             </nav>
         </div>
     </div>
-    <!--    if(select="male" == ""){-->
-    <!--    }-->
-    <div id="main-content" class="taskboard">
-        <H2 style="  text-align: center;color: green">Detail booking</H2>
 
-        <a style="font-size: 22px; color: white">Name User: </a>
-        <br>
-        <a style="color: white"><%= "- " + dataBook.name %></a>
-        <br>
-        <br>
+    <div id="main-content">
 
-        <a style="font-size: 22px; color: white">Phone: </a>
-        <br>
-        <a style="color: white"><%= "- " + dataBook.phone %></a>
-        <br>
-        <br>
-
-        <a style="font-size: 22px; color: white">Service: </a>
-        <br>
-        <% var textService = "" %>
-        <% for (var j = 0; j < dataBook.services.length; j++){ %>
-            <a style="color: white"><%= "- " + dataBook.services[j].service %></a>
-            <br>
-        <% } %>
-
-        <br>
-        <br>
-        <a style="font-size: 22px; color: white">Barber: <%= " " + dataDreser.dress_title %></a>
-        <br>
-
-        <img src="<%= dataDreser.link_avt %>" alt="Trulli" width="300" height="233">
-        <br>
-        <br>
-        <a style="font-size: 22px; color: white">Time book: <%= dataBook.time_book %></a>
-
-        <br>
-        <br>
-        <a style="font-size: 22px; color: white">Status: </a>
-        <% if(dataBook.status == "booking"){ %>
-            <a style="font-size: 22px; color: green">    <%= "pending" %>        </a>
-        <% } else if (dataBook.status == "wait"){ %>
-            <a style="font-size: 22px; color: green">    <%= "wait" %>        </a>
-        <% }else { %>
-             <% if(dataBook.result == "deny"){ %>
-            <a style="font-size: 22px; color: green">    <%= "deny" %>        </a>
-             <% } else{ %>
-            <a style="font-size: 22px; color: green">    <%= "done" %>        </a>
-             <% } %>
-       <% } %>
     </div>
 
+</div>
+
+<div id="main-content" class="taskboard">
+    <ul style="">
+        <% for (var i = 0; i < dresser.length; i++){ %>
+            <li
+                    style="color: white; list-style-type: none;background-color: green; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                <% if(!dresser[i].dress_title == ""){ %>
+                    <%= "Dresser Name: " + dresser[i].dress_title %>
+                <% } else{ %>
+                    <%= "Dresser Name: " + "No Mention" %>
+                <% } %>
+                <br>
+                    <img name="img_avt" src="<%= dresser[i].link_avt %>" alt="Trulli" width="300" height="300">
+                <br>
+                <br>
+                <% if(!dresser[i].content == ""){ %>
+                    <%= "Description: " + dresser[i].content %>
+                <% } else{ %>
+                    <%= "Description: " + "No Mention" %>
+                <% } %>
+                <br>
+            </li>
+        <% } %>
+    </ul>
 </div>
 
 <!-- Javascript -->
 <script src="../assets/bundles/libscripts.bundle.js"></script>
 <script src="../assets/bundles/vendorscripts.bundle.js"></script>
 
+<script src="../assets/bundles/easypiechart.bundle.js"></script> <!-- easypiechart Plugin Js -->
+<script src="../assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+
 <script src="../assets/bundles/mainscripts.bundle.js"></script>
 <script src="../assets/bundles/morrisscripts.bundle.js"></script>
+<script src="../assets/js/pages/ui/dialogs.js"></script>
 <script>
-    $('.sparkbar').sparkline('html', {
-        type: 'bar'
+    // cwidget scroll
+    $('.chat-list').slimScroll({
+        height: 'calc(100vh - 220px)',
+        wheelStep: 10,
+        touchScrollStep: 50,
+        color: '#2b2e33',
+        size: '4px',
+        borderRadius: '3px',
+        alwaysVisible: true,
+        position: 'right',
+    });
+
+    // cwidget scroll
+    $('.chat-history ul').slimScroll({
+        height: 'calc(100vh - 340px)',
+        wheelStep: 10,
+        touchScrollStep: 50,
+        color: '#2b2e33',
+        size: '4px',
+        borderRadius: '3px',
+        alwaysVisible: false,
+        position: 'right',
     });
 </script>
+</div>
 </body>
 
 </html>
