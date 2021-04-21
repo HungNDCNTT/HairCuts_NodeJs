@@ -6,27 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <title>HairDressers</title>
+    <title>Add Dresser</title>
     <!-- VENDOR CSS -->
     <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/vendor/animate-css/animate.min.css">
     <link rel="stylesheet" href="../assets/vendor/font-awesome/css/font-awesome.min.css">
 
+    <link rel="stylesheet" href="../assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
+
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/chatapp.css">
+    <link rel="stylesheet" href="../assets/css/blog.css">
     <link rel="stylesheet" href="../assets/css/color_skins.css">
+
 </head>
 
 <body class="theme-blue">
-
 <!-- Page Loader -->
-
-<!-- Overlay For Sidebars -->
 <div class="overlay" style="display: none;"></div>
 
 <div id="wrapper">
+    <script>
+        $(function () {
+            // Multiple images preview in browser
+            var imagesPreview = function (input, placeToInsertImagePreview) {
+                if (input.files) {
+                    var filesAmount = input.files.length;
+                    for (i = 0; i < filesAmount; i++) {
+                        var reader = new FileReader();
+                        reader.onload = function (event) {
+                            $($.parseHTML('<img width="18%" height="233" style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                        }
+                        reader.readAsDataURL(input.files[i]);
+                    }
+                }
+            };
 
+            $('#gallery-photo-add').on('change', function () {
+                imagesPreview(this, 'div.gallery');
+            });
+        });
+    </script>
 
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
@@ -142,97 +162,106 @@
                     <li class="heading">Main</li>
                     <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
-                    <li class="active"><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
+                    <li><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a></li>
-                    <li><a href="/post"><i class="icon-notebook"></i><span>Post</span></a></li>
+                    <li class="active"><a href="/post"><i class="icon-notebook"></i><span>Post</span></a>
+                    </li>
                 </ul>
             </nav>
         </div>
     </div>
 
-    <div id="main-content">
-
+    <div id="main-content" class="taskboard">
+        <form method="post" action="/createNewDresser" enctype="multipart/form-data">
+            <a style="font-size: 33px; color: white; width: 100%; text-align: center; -ms-transform: translateY(-50%); transform: translateY(-50%)">Add new HairDresser</a>
+            <br>
+            <br>
+            <br>
+            <br>
+            <input type="file" name="files" multiple id="gallery-photo-add" accept="image/*" max-uploads=5>
+            <br>
+            <br>
+            <div class="gallery"></div>
+            <br>
+            <br>
+            <label style="color: white">Dresser Name: </label>
+            <br>
+            <textarea name="title" cols="40" rows="2" style="width: 100%"></textarea>
+            <br>
+            <br>
+            <label style="color: white">Description:</label>
+            <br>
+            <textarea name="content" cols="10" rows="5" style="width: 100%"></textarea>
+            <button type="submit" name="submit" value="addNewDresser" style="margin-top: 9px;color: white;background: blue">ADD</button>
+        </form>
     </div>
-
 </div>
 
-<div id="main-content" class="taskboard">
-    <ul style="">
-        <% for (var i = 0; i < dresser.length; i++){ %>
-            <li
-                    style="color: white; list-style-type: none;background-color: green; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
-                <% if(!dresser[i].dress_title == ""){ %>
-                    <%= "Dresser Name: " + dresser[i].dress_title %>
-                <% } else{ %>
-                    <%= "Dresser Name: " + "No Mention" %>
-                <% } %>
-                <br>
-                <img name="img_avt" src="<%= dresser[i].link_avt %>" alt="Trulli" width="300" height="300">
-                <br>
-                <br>
-                <% if(!dresser[i].content == ""){ %>
-                    <%= "Description: " + dresser[i].content %>
-                <% } else{ %>
-                    <%= "Description: " + "No Mention" %>
-                <% } %>
-                <br>
-                    <form method="post" action="/dresser">
-                        <div style="display: grid; position: absolute;  width: 100px; right: 10px; top: 0px; bottom: 0px;height: 30px">
-                            <button name="change" type="submit" id="1" value="Edit"
-                                    style=" right: 6px;top: 2px; border-radius: 4px; height: 100%; background-color: green; color: white;  cursor: pointer">
-                                Edit
-                            </button>
-                            <button name="change" type="submit" id="2" value="Delete"
-                                    style=" right: 6px; height: 100% ; border-radius: 4px; background-color: darkred; color: white; cursor: pointer ">
-                                Delete
-                            </button>
-                        </div>
-                    </form>
-                    <br>
-            </li>
-        <% } %>
-    </ul>
-    <form>
-        <input type="submit"  name="submit" style="display: block; position: fixed;bottom: 20px; right: 30px; z-index: 99;font-size: 18px;border: none;outline: none;background-color: blue;color: white;cursor: pointer;padding: 15px;border-radius: 4px;" id="myBtn" title="Go to top" value="Add Dresser"></input>
-    </form>
-</div>
 
 <!-- Javascript -->
 <script src="../assets/bundles/libscripts.bundle.js"></script>
 <script src="../assets/bundles/vendorscripts.bundle.js"></script>
 
-<script src="../assets/bundles/easypiechart.bundle.js"></script> <!-- easypiechart Plugin Js -->
-<script src="../assets/vendor/sweetalert/sweetalert.min.js"></script> <!-- SweetAlert Plugin Js -->
+<script src="../assets/bundles/knob.bundle.js"></script> <!-- Jquery Knob-->
+<script src="../assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 <script src="../assets/bundles/mainscripts.bundle.js"></script>
 <script src="../assets/bundles/morrisscripts.bundle.js"></script>
-<script src="../assets/js/pages/ui/dialogs.js"></script>
-<script>
-    // cwidget scroll
-    $('.chat-list').slimScroll({
-        height: 'calc(100vh - 220px)',
-        wheelStep: 10,
-        touchScrollStep: 50,
-        color: '#2b2e33',
-        size: '4px',
-        borderRadius: '3px',
-        alwaysVisible: true,
-        position: 'right',
-    });
 
-    // cwidget scroll
-    $('.chat-history ul').slimScroll({
-        height: 'calc(100vh - 340px)',
-        wheelStep: 10,
-        touchScrollStep: 50,
-        color: '#2b2e33',
-        size: '4px',
-        borderRadius: '3px',
-        alwaysVisible: false,
-        position: 'right',
+<script>
+    $(function () {
+        $('.knob').knob({
+            draw: function () {
+                // "tron" case
+                if (this.$.data('skin') == 'tron') {
+
+                    var a = this.angle(this.cv) // Angle
+                        ,
+                        sa = this.startAngle // Previous start angle
+                        ,
+                        sat = this.startAngle // Start angle
+                        ,
+                        ea // Previous end angle
+                        , eat = sat + a // End angle
+                        ,
+                        r = true;
+
+                    this.g.lineWidth = this.lineWidth;
+
+                    this.o.cursor &&
+                    (sat = eat - 0.3) &&
+                    (eat = eat + 0.3);
+
+                    if (this.o.displayPrevious) {
+                        ea = this.startAngle + this.angle(this.value);
+                        this.o.cursor &&
+                        (sa = ea - 0.3) &&
+                        (ea = ea + 0.3);
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.previousColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea,
+                            false);
+                        this.g.stroke();
+                    }
+
+                    this.g.beginPath();
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                    this.g.stroke();
+
+                    this.g.lineWidth = 2;
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.o.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this
+                        .lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                    this.g.stroke();
+
+                    return false;
+                }
+            }
+        });
     });
 </script>
-</div>
 </body>
 
 </html>

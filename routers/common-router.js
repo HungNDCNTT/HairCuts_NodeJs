@@ -28,6 +28,7 @@ appacc.use(bodyParser.urlencoded({extended: false}))
 appacc.use(bodyParser.json())
 var uploadd = multer({storage: storagee}).array('files', 12);
 var uploadmmm = require('./multer')
+var uploadImage = require('./multer')
 
 const cloudinary = require('cloudinary').v2;
 const dotenv = require('dotenv')
@@ -130,11 +131,14 @@ router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
 router.get('/dresser', (req, res) =>{
+    if (req.query.submit == undefined) {
     HairDresser.find({}, function (err, dresser) {
         res.render('dresser', {
             dresser: dresser
         });
-    });
+    });}else if(req.query.submit=='Add Dresser'){
+        res.render('add-dresser');
+    }
 });
 
 router.get('/calendar', (req, res) => {
