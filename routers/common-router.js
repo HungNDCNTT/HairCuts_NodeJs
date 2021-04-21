@@ -7,6 +7,7 @@ let Image = require('../models/image');
 let BookingList = require('../models/booking');
 let HairDresser = require('../models/hair_dresser');
 let Details = require('../models/details');
+let Users = require('../models/user');
 let multer = require('multer');
 let fs = require('fs');
 let upload = multer({dest: 'uploads/'})
@@ -130,6 +131,14 @@ router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'))
 router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
+router.get('/userManager', (req, res) => {
+    Users.find({}, function (err, users) {
+        res.render('user-manager', {
+            title: 'User Manager',
+            users: users
+        });
+    });
+});
 router.get('/dresser', (req, res) => {
     if (req.query.submit == undefined) {
         HairDresser.find({}, function (err, dresser) {
