@@ -164,7 +164,7 @@
       </li>
         <% for (var i = 0; i < users.length; i++){ %>
             <li
-                    style="color: white; list-style-type: none;background-color: lightskyblue; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                    style="color: white; list-style-type: none;background-color: lightskyblue; border-radius: 15px; padding: 30px;  margin-top: 20px; width: fit-content;margin-left: 100px">
                 <% if(!users[i].name == ""){ %>
                     <%= "User Name: " + users[i].name %>
                 <% } else{ %>
@@ -177,7 +177,10 @@
                     <%= "Phone: " + "No Mention" %>
                 <% } %>
                 <br>
-                    <img name="img_avt" src="<%= users[i].avatar_link %>" alt="Trulli" width="200" height="200">
+                <br>
+                    <div style="border-radius: 20px">
+                        <img name="img_avt" src="<%= users[i].avatar_link %>" alt="Trulli" width="200" height="200">
+                    </div>
                     <br>
                     <br>
             </li>
