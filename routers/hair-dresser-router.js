@@ -22,7 +22,7 @@ router.get('/api/hairDresser/getAll', dresserController.getAllDresser);
  * Get All dresser Web
  **/
 
-router.get('/dressers', dresserController.getAllDresserWeb);
+router.get('/dresser', dresserController.getAllDresserWeb);
 
 /**
  * API

@@ -129,17 +129,23 @@ router.get('/page-lockscreen', (req, res) => res.render('page/page-lockscreen'))
 router.get('/profile', (req, res) => res.render('profile'));
 router.get('/inbox', (req, res) => res.render('inbox'));
 router.get('/mail-compose', (req, res) => res.render('mail-compose'));
-router.get('/chat', (req, res) => res.render('chat'));
+router.get('/dresser', (req, res) =>{
+    HairDresser.find({}, function (err, dresser) {
+        res.render('dresser', {
+            dresser: dresser
+        });
+    });
+});
 
 router.get('/calendar', (req, res) => {
     res.render('calendar')
 });
 
-router.get('/taskboard', (req, res) => {
+router.get('/post', (req, res) => {
     if (req.query.submit == undefined) {
         Image.find({}, function (err, images) {
             Details.find({}, function (err, details) {
-                res.render('taskboard', {data: images, dataNewPaper: details})
+                res.render('post', {data: images, dataNewPaper: details})
             });
         })
     } else if (req.query.submit == "Change image") {
