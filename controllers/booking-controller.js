@@ -92,23 +92,23 @@ module.exports.getBookingApi = function (req, res, next) {
 
 module.exports.getBookingNow = function (req, res, next) {
     BookingList.find({times: new Date(Date.now()).toLocaleDateString()}, function (err, bookings) {
-        let result = [];
-        res.setHeader('Content-Type', 'application/json');
-        bookings.forEach(booking => {
-            result.push({
-                id:booking._id,
-                customer_id: booking.customer_id,
-                name: booking.name,
-                phone: booking.phone,
-                time_book: booking.time_book,
-                services: booking.services,
-                price: booking.price,
-                status: booking.status,
-                result: booking.result,
-                times: booking.times
-            });
-        });
-        res.send(JSON.stringify(result));
+        // let result = [];
+        // res.setHeader('Content-Type', 'application/json');
+        // bookings.forEach(booking => {
+        //     result.push({
+        //         id:booking._id,
+        //         customer_id: booking.customer_id,
+        //         name: booking.name,
+        //         phone: booking.phone,
+        //         time_book: booking.time_book,
+        //         services: booking.services,
+        //         price: booking.price,
+        //         status: booking.status,
+        //         result: booking.result,
+        //         times: booking.times
+        //     });
+        // });
+        res.send(JSON.stringify(bookings));
     });
 };
 
