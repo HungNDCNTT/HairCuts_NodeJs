@@ -24,29 +24,7 @@
 <div class="overlay" style="display: none;"></div>
 
 <div id="wrapper">
-    <script>
-        $(function () {
-            // Multiple images preview in browser
-            var imagesPreview = function (input, placeToInsertImagePreview) {
-                if (input.files) {
-                    var filesAmount = input.files.length;
-                    for (i = 0; i < filesAmount; i++) {
-                        var reader = new FileReader();
-                        reader.onload = function (event) {
-                            $($.parseHTML('<img width="18%" height="233" style="margin:10px;background-position:center center;background-color: grey; border-radius: 15px">')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
-                        }
 
-                        reader.readAsDataURL(input.files[i]);
-                    }
-                }
-
-            };
-
-            $('#gallery-photo-add').on('change', function () {
-                imagesPreview(this, 'div.gallery');
-            });
-        });
-    </script>
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
 
@@ -177,7 +155,7 @@
             <br>
             <br>
             <br>
-            <input type="file" name="files" multiple id="gallery-photo-add" accept="image/*" max-uploads=5>
+            <input type="file" name="files" multiple id="gallery-photo-add" >
             <br>
             <br>
             <div class="gallery"></div>

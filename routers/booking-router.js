@@ -23,6 +23,7 @@ router.get('/bookings', bookingController.getBooking);
  **/
 
 router.get('/api/bookings', bookingController.getBookingApi);
+router.get('/api/bookingNow', bookingController.getBookingNow);
 
 router.post('/api/bookingsById',urlencodedParser, bookingController.getDetailsById);
 

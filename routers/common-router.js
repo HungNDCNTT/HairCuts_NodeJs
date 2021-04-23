@@ -268,6 +268,7 @@ router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
                         })
                     })
                     .then(function () {
+                        console.log("dsada")
                     })
                     .finally(function () {
                     });
