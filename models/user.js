@@ -3,7 +3,6 @@ const crypto = require('crypto');
 const TokenGenerator = require('uuid-token-generator');
 const genToken = new TokenGenerator(256, TokenGenerator.BASE62);
 let token = genToken.generate();
-let uid = genToken.generate();
 const userSchema = new mongoose.Schema({
     id: {
         type: String,
@@ -12,7 +11,7 @@ const userSchema = new mongoose.Schema({
     uuid: {
         type: String,
         trim: true,
-        default: uid,
+        default: "",
     },
     avatar_link: {
         type: String,
