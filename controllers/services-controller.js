@@ -145,7 +145,7 @@ module.exports.addService = function (req, res, next) {
 module.exports.updateServiceWeb = function (req, res, next) {
 
     Services.findByIdAndUpdate(
-        req.body.service_id,
+        {_id: req.body.id},
         {
             service_name: req.body.service_name,
             service_price: req.body.service_price,
@@ -166,7 +166,7 @@ module.exports.updateServiceWeb = function (req, res, next) {
 module.exports.updateServiceApi = function (req, res, next) {
 
     Services.findByIdAndUpdate(
-        req.body.id,
+        {_id: req.body.id},
         {
             service_name: req.body.service_name,
             service_price: req.body.service_price,

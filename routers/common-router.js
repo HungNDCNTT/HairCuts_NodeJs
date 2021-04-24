@@ -8,9 +8,9 @@ let BookingList = require('../models/booking');
 let HairDresser = require('../models/hair_dresser');
 let Details = require('../models/details');
 let Users = require('../models/user');
+let Services = require('../models/services');
 let multer = require('multer');
 let fs = require('fs');
-let upload = multer({dest: 'uploads/'})
 let storagee = multer.diskStorage({
     destination: function (req, res, cb) {
         const dir = "./uploads";
@@ -157,6 +157,8 @@ router.get('/dresser', (req, res) => {
                     link_avt: items.link_avt,
                     comments: items.comments,
                     rate: items.rate,
+                    isBusy: items.isBusy,
+                    timeBusy: items.timeBusy,
                 });
             });
             // idDresser
@@ -180,6 +182,8 @@ router.get('/dresser', (req, res) => {
                             link_avt: items.link_avt,
                             comments: items.comments,
                             rate: items.rate,
+                            isBusy: items.isBusy,
+                            timeBusy: items.timeBusy,
                         });
                     });
                     // idDresser
@@ -189,14 +193,113 @@ router.get('/dresser', (req, res) => {
                 })
             }
         )
+    } else if (req.query.submit == "changeStatus") {
+        let check = req.query.currentStatus;
+        if (check == "true") {
+            console.log("true")
+            HairDresser.findByIdAndUpdate(
+                {_id: req.query.idDresser},
+                {
+                    isBusy: false,
+                },
+                function (err) {
+                    HairDresser.find({}, function (err, dresser) {
+                            let result = [];
+                            dresser.forEach(items => {
+                                result.push({
+                                    id: items._id.toString(),
+                                    hair_dress_id: items.hair_dress_id,
+                                    dress_title: items.dress_title,
+                                    content: items.content,
+                                    link_avt: items.link_avt,
+                                    comments: items.comments,
+                                    rate: items.rate,
+                                    isBusy: items.isBusy,
+                                    timeBusy: items.timeBusy,
+                                });
+                            });
+                            // idDresser
+                            res.render('dresser', {
+                                dresser: result
+                            });
+                        }
+                    );
+                });
+        } else {
+            console.log("false")
+            HairDresser.findByIdAndUpdate(
+                {_id: req.query.idDresser},
+                {
+                    isBusy: true,
+                },
+                function (err) {
+                    HairDresser.find({}, function (err, dresser) {
+                            let result = [];
+                            dresser.forEach(items => {
+                                result.push({
+                                    id: items._id.toString(),
+                                    hair_dress_id: items.hair_dress_id,
+                                    dress_title: items.dress_title,
+                                    content: items.content,
+                                    link_avt: items.link_avt,
+                                    comments: items.comments,
+                                    rate: items.rate,
+                                    isBusy: items.isBusy,
+                                    timeBusy: items.timeBusy,
+                                });
+                            });
+                            // idDresser
+                            res.render('dresser', {
+                                dresser: result
+                            });
+                        }
+                    );
+                }
+            );
+        }
     }
 });
 
 router.get('/calendar', (req, res) => {
     res.render('calendar')
 });
-router.get('/services', (req, res) => res.render('service'));
+router.get('/services', (req, res) => {
 
+    if (req.query.submit == undefined) {
+        Services.find({}, function (err, services) {
+            res.render('service', {
+                services: services
+            });
+        });
+    } else if (req.query.submit == "DeleteService") {
+        Services.findByIdAndRemove({_id: req.query.id},
+            function (err) {
+                res.redirect('/services')
+            });
+    } else if (req.query.submit == "Add Service") {
+        res.render('service-add')
+    }
+});
+router.post('/addService', (req, res) => {
+    let newService = new Services({
+        service_name: req.query.service_name,
+        service_price: req.query.service_price,
+        estimate_times: req.query.estimate_times,
+    });
+    newService.save()
+        .then(item => {
+            Services.find({}, function (err, services) {
+                res.render('service', {
+                    services: services
+                });
+                res.redirect('/services');
+            });
+        })
+        .catch(err => {
+            res.status(500).json({message: err});
+            console.log('unsaved');
+        });
+})
 
 
 router.get('/post', (req, res) => {
