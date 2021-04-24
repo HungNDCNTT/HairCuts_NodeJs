@@ -37,7 +37,8 @@ module.exports.getDetailsById = function (req, res, next) {
                 price: booking.price,
                 status: booking.status,
                 result: booking.result,
-                times: booking.times
+                times: booking.times,
+                totalEstimate: booking.totalEstimate
             });
         });
         res.send(JSON.stringify(detailItems));
@@ -60,7 +61,8 @@ module.exports.getDetailsByIdddd = function (req, res, next) {
                 price: booking.price,
                 status: booking.status,
                 result: booking.result,
-                times: booking.times
+                times: booking.times,
+                totalEstimate: booking.totalEstimate,
             });
         });
         res.send(JSON.stringify(detailItems));
@@ -83,7 +85,8 @@ module.exports.getBookingApi = function (req, res, next) {
                 price: booking.price,
                 status: booking.status,
                 result: booking.result,
-                times: booking.times
+                times: booking.times,
+                totalEstimate: booking.totalEstimate
             });
         });
         res.send(JSON.stringify(result));
@@ -131,7 +134,8 @@ module.exports.insertBooking = function (req, res, next) {
         price: req.body.price,
         status: req.body.status,
         result: req.body.result,
-        times: req.body.times
+        times: req.body.times,
+        totalEstimate: req.body.totalEstimate,
     });
     booking.save()
         .then(item => {
@@ -165,7 +169,8 @@ module.exports.editBooking = function (req, res, next) {
             price: req.body.price,
             result: req.body.result,
             status: req.body.status,
-            times: req.body.times
+            times: req.body.times,
+            totalEstimate: req.body.totalEstimate,
         },
         function (err) {
             res.redirect("/booking");

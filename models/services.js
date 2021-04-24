@@ -15,7 +15,7 @@ const servicesSchema = new mongoose.Schema({
         type: String,
         default:"",
     },
-    times: {
+    estimate_times: {
         type: String,
         default:"",
     },

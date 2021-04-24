@@ -74,18 +74,23 @@ router.get('/logout', (req, res) => {
 router.get('/recover', (req, res) => res.render('recover'));
 
 router.get('/home', (req, res) => {
-    abc = req.query.gender
-    if (abc == "wait") {
-        valueQuery = "wait"
-    } else if (abc == "done") {
-        valueQuery = "done"
+    if (storage.getItem("email") != null) {
+        res.render('login');
     } else {
-        abc = "pedding"
-        valueQuery = "booking"
+        abc = req.query.gender
+        if (abc == "wait") {
+            valueQuery = "wait"
+        } else if (abc == "done") {
+            valueQuery = "done"
+        } else {
+            abc = "pedding"
+            valueQuery = "booking"
+        }
+        BookingList.find({status: valueQuery}, function (err, bookings) {
+            res.render("home", {dataa: bookings, select: abc});
+        });
     }
-    BookingList.find({status: valueQuery}, function (err, bookings) {
-        res.render("home", {dataa: bookings, select: abc});
-    });
+
 });
 
 router.post('/home', (req, res) => {
@@ -190,6 +195,8 @@ router.get('/dresser', (req, res) => {
 router.get('/calendar', (req, res) => {
     res.render('calendar')
 });
+router.get('/services', (req, res) => res.render('service'));
+
 
 
 router.get('/post', (req, res) => {

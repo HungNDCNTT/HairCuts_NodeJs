@@ -50,6 +50,10 @@ const bookingSchema = new mongoose.Schema({
 
         default: Date.now(),
     },
+    totalEstimate: {
+        type: String,
+        default: "",
+    }
 });
 
 //Export model

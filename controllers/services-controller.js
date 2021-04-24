@@ -29,7 +29,7 @@ module.exports.getServicesByIdWeb = function (req, res, next) {
                 id: service._id,
                 service_name: service.service_name,
                 service_price: service.service_price,
-                times: service.times,
+                estimate_times: service.estimate_times,
             });
         });
         res.render('services', {
@@ -55,7 +55,7 @@ module.exports.getServicesById = function (req, res, next) {
                 id: service._id,
                 service_name: service.service_name,
                 service_price: service.service_price,
-                times: service.times,
+                estimate_times: service.estimate_times,
             });
         });
         res.send(JSON.stringify(serviceItems));
@@ -80,7 +80,7 @@ module.exports.getAllServices = function (req, res, next) {
                 id: service._id,
                 service_name: service.service_name,
                 service_price: service.service_price,
-                times: service.times,
+                estimate_times: service.estimate_times,
             });
         });
         res.send(JSON.stringify(result));
@@ -98,7 +98,7 @@ module.exports.addServiceWeb = function (req, res, next) {
     let service = new Services({
         service_name: req.body.service_name,
         service_price: req.body.service_price,
-        times: req.body.times,
+        estimate_times: req.body.estimate_times,
     });
     service.save()
         .then(item => {
@@ -123,7 +123,7 @@ module.exports.addService = function (req, res, next) {
     let service = new Services({
         service_name: req.body.service_name,
         service_price: req.body.service_price,
-        times: req.body.times,
+        estimate_times: req.body.estimate_times,
     });
     service.save()
         .then(item => {
@@ -149,7 +149,7 @@ module.exports.updateServiceWeb = function (req, res, next) {
         {
             service_name: req.body.service_name,
             service_price: req.body.service_price,
-            times: req.body.times,
+            estimate_times: req.body.estimate_times,
         },
         function (err) {
             res.redirect("/services");
@@ -170,7 +170,7 @@ module.exports.updateServiceApi = function (req, res, next) {
         {
             service_name: req.body.service_name,
             service_price: req.body.service_price,
-            times: req.body.times,
+            estimate_times: req.body.estimate_times,
         },
         function (err, ok) {
             if (err) {
