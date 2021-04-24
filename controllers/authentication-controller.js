@@ -94,7 +94,7 @@ module.exports.onRegisterApi = (req, res, next) => {
     user.save(function (err) {
             console.log(err);
             if (err) {
-                res.status(500).json({message: 'Register Failure !'});
+                res.status(500).json({message: err.toString()});
                 return null;
             } else {
                 res.status(200).json({message: 'Register successfully !'});
