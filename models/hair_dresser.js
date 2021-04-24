@@ -37,6 +37,14 @@ const hairDresserSchema = new mongoose.Schema({
     rate: {
         type: String,
         default: "",
+    },
+    isBusy: {
+        type: Boolean,
+        default: false,
+    },
+    timeBusy: {
+        type: String,
+        default: "",
     }
 });
 

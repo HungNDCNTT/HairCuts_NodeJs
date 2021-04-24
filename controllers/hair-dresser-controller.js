@@ -20,6 +20,8 @@ module.exports.getAllDresser = function (req, res, next) {
                 link_avt: items.link_avt,
                 comments: items.comments,
                 rate: items.rate,
+                isBusy: items.isBusy,
+                timeBusy: items.timeBusy,
             });
         });
         res.send(JSON.stringify(result));
@@ -53,6 +55,8 @@ module.exports.addHairDresser = function (req, res, next) {
         link_avt: req.body.link_avt,
         comments: req.body.comments,
         rate: req.body.rate,
+        isBusy: req.body.isBusy,
+        timeBusy: req.body.timeBusy,
     });
     hairDresser.save()
         .then(status => {
@@ -84,6 +88,8 @@ module.exports.getDresserById = function (req, res, next) {
                 link_avt: detailId.link_avt,
                 comments: detailId.comments,
                 rate: detailId.rate,
+                isBusy: detailId.isBusy,
+                timeBusy: detailId.timeBusy,
             });
         });
         res.send(JSON.stringify(dresserItems));
