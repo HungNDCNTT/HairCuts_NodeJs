@@ -261,7 +261,14 @@ router.get('/dresser', (req, res) => {
 });
 
 router.get('/calendar', (req, res) => {
-    res.render('calendar')
+    if (req.query.birthday != "" ){
+        BookingList.find({times: new Date(req.query.birthday).toLocaleDateString()}, function (err, bookings) {
+            res.render("calendar", {dataBook: bookings});
+        });
+
+    }else {
+        res.render('calendar')
+    }
 });
 router.get('/services', (req, res) => {
 

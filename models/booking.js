@@ -47,7 +47,6 @@ const bookingSchema = new mongoose.Schema({
     },
     times: {
         type: String,
-
         default: Date.now(),
     },
     totalEstimate: {

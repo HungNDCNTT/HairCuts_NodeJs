@@ -138,7 +138,7 @@
                     <li><a href="/home"><i class="icon-home"></i><span>Home</span></a></li>
                     <li class="heading">App</li>
                     <li><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
-                    <li class="active"><a href="/calendar"><i class="icon-calendar"></i><span>Calendar</span></a>
+                    <li class="active"><a href="/calendar"><i class="icon-calendar"></i><span>Statistics</span></a>
                     </li>
                     <li><a href="/post"><i class="icon-notebook"></i><span>Post</span></a></li>
                     <li><a href="/userManager"><i class="icon-user"></i><span>User manager</span></a></li>
@@ -149,6 +149,34 @@
     </div>
 
     <div id="main-content">
+        <form method="get" action="/calendar">
+            <label for="birthday" style="color: white">Date start :</label>
+            <% if(typeof dataBook !== 'undefined'){ %>
+                <input type="date" id="birthday" name="birthday" data-date-format="MM D YYYY" value="4/24/2021">
+            <% } else{ %>
+                <input type="date" id="birthday" name="birthday" data-date-format="MM D YYYY">
+            <% } %>
+
+            <label hidden style="margin-left: 40px;color: white" for="birthday">Date end :</label>
+            <input hidden type="date" id="birthday1" name="birthday1">
+            <input type="submit">
+        </form>
+        <% if(typeof dataBook !== 'undefined'){ %>
+            <a style="font-size:20px;margin-top: 24px; color: white">Tổng đơn dich vụ hôm
+                nay: <%= dataBook.length + "" %></a>
+            <% var total =0%>
+            <% for (var i = 0; i < dataBook.length; i++){ %>
+                <% total +=dataBook[i].price %>
+            <% } %>
+            <br>
+            <a style="font-size:20px;margin-top: 24px; color: white">Tổng số tiền hôm nay: <%=
+                    total + "VND" %></a>
+        <% } else{ %>
+            <a style="font-size:20px;margin-top: 24px; color: white">Tổng đơn dich vụ hôm nay: 0
+                %>
+            </a>
+        <% } %>
+
     </div>
 
 </div>
