@@ -94,7 +94,7 @@ module.exports.getBookingApi = function (req, res, next) {
 };
 
 module.exports.getBookingNow = function (req, res, next) {
-    BookingList.find({times: new Date(Date.now()).toLocaleDateString()}, function (err, bookings) {
+    BookingList.find({3}, function (err, bookings) {
         // let result = [];
         // res.setHeader('Content-Type', 'application/json');
         // bookings.forEach(booking => {
