@@ -14,7 +14,7 @@ let fileFilter = (req, file, cb) => {
 
     }
 }
-let uploadddd = multer({storage: storagee, fileFilter: fileFilter});
-let uploadImage = multer({storage: storagee, fileFilter: fileFilter});
+let uploadddd = multer({storage: storagee});
+let uploadImage = multer({storage: storagee});
 
 module.exports = uploadddd

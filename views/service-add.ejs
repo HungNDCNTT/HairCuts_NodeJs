@@ -154,20 +154,24 @@
 
     <div id="main-content" class="taskboard">
         <form method="post" action="/addService">
-            <a style="font-size: 33px; color: white; width: 100%; text-align: center; -ms-transform: translateY(-50%); transform: translateY(-50%)">Add
-                New Service.</a>
+            <a style="font-size: 33px; color: white; width: 100%; text-align: center; -ms-transform: translateY(-50%); transform: translateY(-50%)">Thêm dịch vụ</a>
             <br>
             <br>
             <br>
-            <label style="color: white">Service Name: </label>
+            <label style="color: white">Tên dịch vụ</label>
             <br>
-            <textarea name="title" cols="40" rows="2" style="width: 100%"></textarea>
+            <input type="text" name="title" cols="40" rows="2" style="width: 100%; height: 50px; font-size: 18px">
             <br>
             <br>
-            <label style="color: white">Service Price: </label>
+            <label style="color: white">Giá dịch vụ( 20 = 20vnd)</label>
             <br>
-            <textarea name="content" cols="40" rows="2" style="width: 100%"></textarea>
-            <button type="submit" name="submit" value="addNewService" style="margin-top: 9px;background: #00FFFF;color: black">Add Service</button>
+            <input type="number" type="number" name="content" cols="40" rows="2"  style="width: 100%; height: 50px; font-size: 18px">
+            <br>
+            <br>
+            <label style="color: white">Thời gian ước tính( phút)</label>
+            <br>
+            <input  type="number" name="estimate_times" cols="40" rows="2"  style="width: 100%; height: 50px; font-size: 18px">
+            <button type="submit" name="submit" value="addNewService" style="margin-top: 32px;background: #00FFFF;color: black">Thêm dịch vụ</button>
         </form>
     </div>
 </div>

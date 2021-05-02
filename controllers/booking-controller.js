@@ -155,6 +155,19 @@ module.exports.insertBooking = function (req, res, next) {
  * Edit user in web
  **/
 
+module.exports.delBookMobie = function (req, res, next) {
+    BookingList.findByIdAndDelete({_id: req.body.id},
+        function (err) {
+            if (err) {
+                res.status(500).json({message: 'Delete Failure!' + err});
+            } else {
+                res.status(200).json({returnCode: '10000', message: 'Delete Successfully !'});
+            }
+        }
+    )
+
+};
+
 module.exports.editBooking = function (req, res, next) {
 
     BookingList.findByIdAndUpdate(

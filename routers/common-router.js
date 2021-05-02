@@ -107,7 +107,7 @@ router.post('/home', (req, res) => {
         case "Completed":
             varrrrr = "done"
             break;
-        case "View":
+        case "Xem chi tiết":
             varrrrr = "View"
             break;
     }
@@ -283,23 +283,23 @@ router.get('/services', (req, res) => {
             function (err) {
                 res.redirect('/services')
             });
-    } else if (req.query.submit == "Add Service") {
+    } else if (req.query.submit == "Thêm dịch vụ") {
         res.render('service-add')
     }
 });
 router.post('/addService', (req, res) => {
     let newService = new Services({
-        service_name: req.query.service_name,
-        service_price: req.query.service_price,
-        estimate_times: req.query.estimate_times,
+        service_name: req.body.title,
+        service_price: req.body.content,
+        estimate_times: req.body.estimate_times,
     });
     newService.save()
         .then(item => {
             Services.find({}, function (err, services) {
+                res.redirect('/services');
                 res.render('service', {
                     services: services
                 });
-                res.redirect('/services');
             });
         })
         .catch(err => {
@@ -369,6 +369,10 @@ router.get('/post', (req, res) => {
 router.post('/createNewPaper', uploadmmm.array('files'), async (req, res, next) => {
 
 
+});
+
+router.get('/upload', uploadmmm.array('files'), async (req, res, next) => {
+    console.log("đấ")
 });
 router.post('/upload', uploadmmm.array('files'), async (req, res, next) => {
     if (req.body.submit == "Save image") {

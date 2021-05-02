@@ -162,11 +162,11 @@
     <ul style="">
         <% for (var i = 0; i < dresser.length; i++){ %>
             <li
-                    style="color: white; list-style-type: none;background-color: grey; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                    style="color: white; list-style-type: none;background-color: #61b4c9; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
                 <% if(!dresser[i].dress_title == ""){ %>
-                    <%= "Dresser Name: " + dresser[i].dress_title %>
+                    <%= "Tên thợ: " + dresser[i].dress_title %>
                 <% } else{ %>
-                    <%= "Dresser Name: " + "No Mention" %>
+                    <%= "Tên thợ: " + "No Mention" %>
                 <% } %>
                 <br>
                 <div style="display: grid; position: absolute;  width: 100px;height: 30px; right: 30px">
@@ -187,22 +187,22 @@
                     </form>
                     <br>
                     <% if(dresser[i].isBusy == true){ %>
-                        <%= "Status: busy" %>
+                        <%= "Trang thái: Ẩn" %>
                     <% } else if(dresser[i].isBusy == false){ %>
-                        <%= "Status: free" %>
+                        <%= "Trang thái: Hiển thị" %>
                     <% } else{ %>
-                        <%= "Status: free" %>
+                        <%= "Trang thái: Ẩn" %>
                     <% } %>
 
                     <br>
                 </div>
-                <img name="img_avt" src="<%= dresser[i].link_avt %>" alt="Trulli" width="300" height="300">
+                <img name="img_avt" src="<%= dresser[i].link_avt %>" alt="Trulli" width="150" height="150">
                 <br>
                 <br>
                 <% if(!dresser[i].content == ""){ %>
-                    <%= "Description: " + dresser[i].content %>
+                    <%= "Thông tin chi tiết: " + dresser[i].content %>
                 <% } else{ %>
-                    <%= "Description: " + "No Mention" %>
+                    <%= "Thông tin chi tiết: " + "No Mention" %>
                 <% } %>
             </li>
         <% } %>

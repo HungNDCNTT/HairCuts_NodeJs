@@ -192,7 +192,7 @@
         <br>
         <% for (var i = 0; i < dataNewPaper.length; i++){ %>
         <li
-                style="color: white; list-style-type: none;background-color: gray; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
+                style="color: white; list-style-type: none;background-color: #61b4c9; border-radius: 15px; padding: 10px;  margin-top: 40px; width: auto">
                 <img src="<%= dataNewPaper[i].linksHD %>" style="position:absolute;width: 120px; height: 120px; border-radius: 15px" />
                 <a style="color: white; margin-left: 170px; font-size: 21px">    <%= dataNewPaper[i].titles %></a>
                 <br>
@@ -200,7 +200,7 @@
                 <div style="color: white; margin-left: 170px; top: 50px;  overflow: hidden;">    <%= dataNewPaper[i].content %></div>
                 <form method="get" action="/post">
                     <input hidden name="id_new" value="<%= dataNewPaper[i].id %>">
-                    <input type="submit"  name="submit" value="Xóa" style="bottom: 0; border-radius: 13px; position: relative" >
+                    <input type="submit"   name="submit" value="Xóa" style="background-color:darkred; color:white;bottom: 0; border-radius: 4px; position: relative" >
                 </form>
         </li>
 

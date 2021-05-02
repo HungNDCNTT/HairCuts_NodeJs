@@ -145,7 +145,8 @@
                     <li><a href="/dresser"><i class="icon-bubbles"></i><span>Dresser</span></a></li>
                     <li><a href="/calendar"><i class="icon-calendar"></i><span>Statistics</span></a></li>
                     <li><a href="/post"><i class="icon-notebook"></i><span>Post</span></a></li>
-                    <li class="active"><a href="/userManager"><i class="icon-user"></i><span>User manager</span></a></li>
+                    <li class="active"><a href="/userManager"><i class="icon-user"></i><span>User manager</span></a>
+                    </li>
                     <li><a href="/services"><i class="icon-settings"></i><span>Services</span></a></li>
                 </ul>
             </nav>
@@ -161,35 +162,41 @@
 <div id="main-content" class="taskboard">
     <ul style="position: relative">
         <li style="color:white;font-size: 22px">
-            <%= "Total Users: " + users.length %>
+            <%= "Tổng số lượng khách hàng đăng ký tài khoản: " + users.length %>
         </li>
         <% for (var i = 0; i < users.length; i++){ %>
-        <div style="  width: 30% ">
-            <li style="color: white; list-style-type: none;background-color: lightskyblue; border-radius: 15px; padding: 30px;  margin-top: 20px;">
-                <% if(!users[i].name == ""){ %>
-                    <%= "User Name: " + users[i].name %>
-                <% } else{ %>
-                    <%= "User Name: " + "No Mention" %>
-                <% } %>
-                <br>
+            <div style="  width: 30% ">
+                <li style="color: white; list-style-type: none;background-color: #61b4c9; border-radius: 15px; padding: 15px;  margin-top: 20px;">
+                    <% if(!users[i].name == ""){ %>
+                        <%= "Tên khách hàng: " + users[i].name %>
+                    <% } else{ %>
+                        <%= "Tên khách hàng: " + "No Mention" %>
+                    <% } %>
+                    <br>
                     <% if(!users[i].email == ""){ %>
                         <%= "Email: " + users[i].email %>
                     <% } else{ %>
                         <%= "Email: " + "No Mention" %>
                     <% } %>
                     <br>
-                <% if(!users[i].phone == ""){ %>
-                    <%= "Phone: " + users[i].phone %>
+                    <% if(!users[i].phone == ""){ %>
+                        <%= "SDT: " + users[i].phone %>
+                    <% } else{ %>
+                        <%= "SDT: " + "No Mention" %>
+                    <% } %>
+                    <br>
+                    <!--                    https://res.cloudinary.com/softss/image/upload/v1619927777/bg1_d5hfba.png-->
+                    <div style="border-radius: 20px">
+                        <img name="img_avt" src="<% if(!users[i].avatar_link == ""){ %>
+                    <%= users[i].avatar_link %>
                 <% } else{ %>
-                    <%= "Phone: " + "No Mention" %>
+                   <%= "https://res.cloudinary.com/softss/image/upload/v1619927777/bg1_d5hfba.png" %>
                 <% } %>
-                <br>
-                <div style="border-radius: 20px">
-                    <img name="img_avt" src="<%= users[i].avatar_link %>" alt="No image" width="200" height="200">
-                </div>
-                <br>
-            </li>
-        </div>
+" alt="No image" width="150" height="150">
+                    </div>
+                    <br>
+                </li>
+            </div>
         <% } %>
     </ul>
 </div>

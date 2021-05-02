@@ -52,5 +52,6 @@ router.post('/bookings/edit', urlencodedParser, bookingController.editBooking);
  **/
 
 router.post('/bookings/remove', urlencodedParser, bookingController.removeBooking);
+router.post('/bookings/dell', urlencodedParser, bookingController.delBookMobie);
 
 module.exports = router;

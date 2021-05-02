@@ -155,10 +155,19 @@
             <br>
             <br>
             <br>
-            <input type="file" name="files" multiple id="gallery-photo-add" >
+            <input type="file" name="files" multiple id="gallery-photo-add" onchange="previewImage();" >
             <br>
             <br>
-            <div class="gallery"></div>
+            <img id="preview1" alt="" width="18%" height="200"
+                 style="margin:10px;background-position:center center; border-radius: 15px"  onclick="window.open(this.src)">
+            <img id="preview2" alt="" width="18%" height="200"
+                 style="margin:10px;background-position:center center; border-radius: 15px"  onclick="window.open(this.src)">
+            <img id="preview3" alt="" width="18%" height="200"
+                 style="margin:10px;background-position:center center; border-radius: 15px"  onclick="window.open(this.src)">
+            <img id="preview4" alt="" width="18%" height="200"
+                 style="margin:10px;background-position:center center; border-radius: 15px"  onclick="window.open(this.src)">
+            <img id="preview5" alt="" width="18%" height="200"
+                 style="margin:10px;background-position:center center; border-radius: 15px"  onclick="window.open(this.src)">
             <br>
             <br>
             <button type="submit" name="submit" value="Save image" style="margin-top: 9px">Save image</button>
@@ -176,14 +185,54 @@
 <script src="../assets/bundles/mainscripts.bundle.js"></script>
 <script src="../assets/js/pages/ui/dialogs.js"></script>
 <script>
-    $(document).ready(function () {
-        $(".mail-detail-expand").click(function () {
-            $("#mail-detail-open").toggle();
-        });
-        $(".mail-back").click(function () {
-            $("#mail-detail-open").toggle();
-        });
-    });
+    function previewImage() {
+        var file = document.getElementById("gallery-photo-add").files;
+        if (file.length > 0) {
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview1").setAttribute("src", event.target.result);
+            };
+
+            fileReader.readAsDataURL(file[0]);
+        }
+        if (file.length > 1) {
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview2").setAttribute("src", event.target.result);
+            };
+
+            fileReader.readAsDataURL(file[1]);
+        }
+        if (file.length > 2) {
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview3").setAttribute("src", event.target.result);
+            };
+
+            fileReader.readAsDataURL(file[2]);
+        }
+        if (file.length > 3) {
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview4").setAttribute("src", event.target.result);
+            };
+
+            fileReader.readAsDataURL(file[3]);
+        }
+        if (file.length > 4) {
+            var fileReader = new FileReader();
+
+            fileReader.onload = function (event) {
+                document.getElementById("preview5").setAttribute("src", event.target.result);
+            };
+
+            fileReader.readAsDataURL(file[4]);
+        }
+    }
 </script>
 </body>
 

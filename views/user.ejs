@@ -145,21 +145,21 @@
     <!--    if(select="male" == ""){-->
     <!--    }-->
     <div id="main-content" class="taskboard">
-        <H2 style="  text-align: center;color: green">Detail booking</H2>
+        <H2 style="  text-align: center;color: green">Chi tiết lịch</H2>
 
-        <a style="font-size: 22px; color: white">Name User: </a>
+        <a style="font-size: 22px; color: white">Tên khách hàng: </a>
         <br>
         <a style="color: white"><%= "- " + dataBook.name %></a>
         <br>
         <br>
 
-        <a style="font-size: 22px; color: white">Phone: </a>
+        <a style="font-size: 22px; color: white">SDT: </a>
         <br>
-        <a style="color: white"><%= "- " + dataBook.phone %></a>
+        <a style="color: white"><%= "" + dataBook.phone %></a>
         <br>
         <br>
 
-        <a style="font-size: 22px; color: white">Service: </a>
+        <a style="font-size: 22px; color: white">Dịch vụ: </a>
         <br>
         <% var textService = "" %>
         <% for (var j = 0; j < dataBook.services.length; j++){ %>
@@ -169,26 +169,26 @@
 
         <br>
         <br>
-        <a style="font-size: 22px; color: white">Barber: <%= " " + dataDreser.dress_title %></a>
+        <a style="font-size: 22px; color: white">Thợ làm dịch vụ: <%= " " + dataDreser.dress_title %></a>
         <br>
 
         <img src="<%= dataDreser.link_avt %>" alt="Trulli" width="300" height="233">
         <br>
         <br>
-        <a style="font-size: 22px; color: white">Time book: <%= dataBook.time_book %></a>
+        <a style="font-size: 22px; color: white">Thời gian bắt đầu: <%= dataBook.time_book %></a>
 
         <br>
         <br>
-        <a style="font-size: 22px; color: white">Status: </a>
+        <a style="font-size: 22px; color: white">Trạng thái: </a>
         <% if(dataBook.status == "booking"){ %>
-            <a style="font-size: 22px; color: green">    <%= "pending" %>        </a>
+            <a style="font-size: 22px; color: green">    <%= "Chờ xác nhận" %>        </a>
         <% } else if (dataBook.status == "wait"){ %>
-            <a style="font-size: 22px; color: green">    <%= "wait" %>        </a>
+            <a style="font-size: 22px; color: green">    <%= "Đợi thực hiện" %>        </a>
         <% }else { %>
              <% if(dataBook.result == "deny"){ %>
-            <a style="font-size: 22px; color: green">    <%= "deny" %>        </a>
+            <a style="font-size: 22px; color: green">    <%= "Từ chối" %>        </a>
              <% } else{ %>
-            <a style="font-size: 22px; color: green">    <%= "done" %>        </a>
+            <a style="font-size: 22px; color: green">    <%= "Hoàn thành" %>        </a>
              <% } %>
        <% } %>
     </div>
