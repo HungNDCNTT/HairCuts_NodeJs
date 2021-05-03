@@ -38,6 +38,7 @@ module.exports.getDetailsById = function (req, res, next) {
                 status: booking.status,
                 result: booking.result,
                 times: booking.times,
+                isRate: booking.isRate,
                 totalEstimate: booking.totalEstimate
             });
         });
@@ -62,6 +63,7 @@ module.exports.getDetailsByIdddd = function (req, res, next) {
                 status: booking.status,
                 result: booking.result,
                 times: booking.times,
+                isRate: booking.isRate,
                 totalEstimate: booking.totalEstimate,
             });
         });
@@ -86,6 +88,7 @@ module.exports.getBookingApi = function (req, res, next) {
                 status: booking.status,
                 result: booking.result,
                 times: booking.times,
+                isRate: booking.isRate,
                 totalEstimate: booking.totalEstimate
             });
         });
@@ -135,6 +138,7 @@ module.exports.insertBooking = function (req, res, next) {
         status: req.body.status,
         result: req.body.result,
         times: req.body.times,
+        times: false,
         totalEstimate: req.body.totalEstimate,
     });
     booking.save()
@@ -168,6 +172,21 @@ module.exports.delBookMobie = function (req, res, next) {
 
 };
 
+
+module.exports.updateRate = function (req, res, next) {
+    BookingList.findByIdAndUpdate(
+        req.body.id,
+        {
+            isRate: true
+        },function (err) {
+            if (err) {
+                res.status(500).json({message: ' Failure!' + err});
+            } else {
+                res.status(200).json({returnCode: '10000', message: ' Successfully !'});
+            }
+        });
+}
+
 module.exports.editBooking = function (req, res, next) {
 
     BookingList.findByIdAndUpdate(
@@ -196,6 +215,7 @@ module.exports.editBooking = function (req, res, next) {
  * Method POST
  * remove booking in web
  **/
+
 
 module.exports.removeBooking = function (req, res, next) {
     BookingList.findByIdAndRemove(req.body.pid,

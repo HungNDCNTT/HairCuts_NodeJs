@@ -43,7 +43,10 @@ router.post('/bookings/add', urlencodedParser, bookingController.insertBooking);
  * Edit Booking
  **/
 
-router.post('/bookings/edit', urlencodedParser, bookingController.editBooking);
+router.post('editBooking', urlencodedParser, bookingController.editBooking);
+
+
+router.post('/api/updateRateBooking', urlencodedParser, bookingController.updateRate);
 
 /**
  * API

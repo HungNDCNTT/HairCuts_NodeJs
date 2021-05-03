@@ -52,6 +52,10 @@ const bookingSchema = new mongoose.Schema({
     totalEstimate: {
         type: String,
         default: "",
+    },
+    isRate: {
+        type: Boolean,
+        default: false,
     }
 });
 

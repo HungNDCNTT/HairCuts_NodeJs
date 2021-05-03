@@ -127,13 +127,13 @@ module.exports.deleteDresserById = function (req, res, next) {
  **/
 
 module.exports.updateComment = function (req, res, next) {
-    HairDresser.findOne({hair_dress_id: req.body.hair_dress_id}, function (err, exits) {
+    HairDresser.findOne({_id: req.body.id}, function (err, exits) {
         if (!exits) {
             res.status(500).json({message: 'This Dresser is not exits!'});
             return null;
         } else {
             HairDresser.findOneAndUpdate(
-                {hair_dress_id: req.body.hair_dress_id},
+                {_id: req.body.id},
                 {
                     $push: {comments: req.body.comments,},
                 },
