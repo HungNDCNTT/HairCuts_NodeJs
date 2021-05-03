@@ -291,7 +291,7 @@ router.post('/addService', (req, res) => {
     let newService = new Services({
         service_name: req.body.title,
         service_price: req.body.content,
-        estimate_times: req.body.estimate_times,
+        estimate_times: req.body.cars,
     });
     newService.save()
         .then(item => {
