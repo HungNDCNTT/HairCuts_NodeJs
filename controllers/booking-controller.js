@@ -138,7 +138,7 @@ module.exports.insertBooking = function (req, res, next) {
         status: req.body.status,
         result: req.body.result,
         times: req.body.times,
-        times: false,
+        isRate: false,
         totalEstimate: req.body.totalEstimate,
     });
     booking.save()
